@@ -190,8 +190,10 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addItem(spacerItem10, 0, 0, 1, 1)
         self.verticalLayout.addWidget(self.groupBox_3)
         '''
-        spacerItem11 = QtWidgets.QSpacerItem(20, 288, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem11)
+
+        self.spacerItem11 = QtWidgets.QSpacerItem(20, 288, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        #self.praice = self.spacerItem11
+        self.verticalLayout.addItem(self.spacerItem11)
 
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setObjectName("label")
@@ -237,7 +239,11 @@ class Ui_MainWindow(object):
         self.action_3.setText(_translate("MainWindow", "Удалить"))
 
     def createLog(self):
+        if len(self.LogList) != 0:
+            self.verticalLayout.removeItem(self.spacerItem11)
         self.LogList.append(self.dd(self.centralwidget, self.verticalLayout, len(self.LogList)))
+        if len(self.LogList) != 1:
+            self.verticalLayout.addItem(self.spacerItem11)
 
 
 from switch import SwitchButton

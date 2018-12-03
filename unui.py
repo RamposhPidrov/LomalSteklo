@@ -23,6 +23,7 @@ class MyWin(QtWidgets.QMainWindow):
         master.parent().children()[list(map(lambda x: str(x).find('QFrame'), master.parent().children())).index(17)].setVisible(bool)
         self.NewLog()
         print('HUI')
+        print()
 
     def NewLog(self):
         self.ui.createLog()
