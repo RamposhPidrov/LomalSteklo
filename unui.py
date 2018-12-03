@@ -10,8 +10,11 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+
+
         self.ui.switch1.clicked(self.MyFunction)
         self.ui.switch1_2.clicked(self.MyFunction)
+        self.ui.switch1_3.clicked(self.MyFunction)
 
 
     def MyFunction(self, master):
