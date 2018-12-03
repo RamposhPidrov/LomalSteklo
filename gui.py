@@ -9,6 +9,57 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
+    class dd:
+        def __init__(self, centralwidget, verticalLayout, i):
+
+
+            self.groupBox = QtWidgets.QGroupBox(centralwidget)
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
+            self.groupBox.setSizePolicy(sizePolicy)
+            self.groupBox.setMinimumSize(QtCore.QSize(0, 100))
+            self.groupBox.setMaximumSize(QtCore.QSize(16777215, 100))
+            self.groupBox.setObjectName("groupBox{0}".format(i))
+            self.gridLayout = QtWidgets.QGridLayout(self.groupBox)
+            self.gridLayout.setObjectName("gridLayout{0}".format(i))
+            self.switch1 = SwitchButton(self.groupBox)
+            self.switch1.setMinimumSize(QtCore.QSize(70, 25))
+            self.switch1.setMaximumSize(QtCore.QSize(16777215, 25))
+            self.switch1.setToolTipDuration(-1)
+            self.switch1.setAutoFillBackground(False)
+            self.switch1.setObjectName("switch1{0}".format(i))
+            self.gridLayout.addWidget(self.switch1, 0, 1, 1, 1)
+            spacerItem = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+            self.gridLayout.addItem(spacerItem, 0, 2, 1, 1)
+            spacerItem1 = QtWidgets.QSpacerItem(797, 30, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+            self.gridLayout.addItem(spacerItem1, 0, 0, 1, 1)
+            spacerItem2 = QtWidgets.QSpacerItem(10, 10, QtWidgets.QSizePolicy.Minimum,
+                                                QtWidgets.QSizePolicy.MinimumExpanding)
+            self.gridLayout.addItem(spacerItem2, 1, 0, 1, 1)
+            self.inFrame = QtWidgets.QFrame(self.groupBox)
+            self.inFrame.setEnabled(True)
+            self.inFrame.setMinimumSize(QtCore.QSize(0, 200))
+            self.inFrame.setAutoFillBackground(False)
+            #self.inFrame.setStyleSheet("backgroundcolor: rgb(93, 78, 255)")
+            self.inFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+            self.inFrame.setFrameShadow(QtWidgets.QFrame.Raised)
+            self.inFrame.setObjectName("inFrame{0}".format(i))
+            self.label_2 = QtWidgets.QLabel(self.inFrame)
+            self.label_2.setGeometry(QtCore.QRect(170, 30, 221, 61))
+            self.label_2.setObjectName("label_2{0}".format(i))
+            self.gridLayout.addWidget(self.inFrame, 2, 0, 1, 1)
+            verticalLayout.addWidget(self.groupBox)
+            spacerItem3 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+            verticalLayout.addItem(spacerItem3)
+
+            self.dict = {
+                'groupBox': self.groupBox,
+                'switch': self.switch1
+            }
+
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1193, 728)
@@ -16,6 +67,11 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
+
+        self.LogList = []
+        #self.LogList.append(self.dd(self.centralwidget, self.verticalLayout, len(self.LogList)))
+        self.createLog()
+        '''
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -55,6 +111,8 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.groupBox)
         spacerItem3 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
         self.verticalLayout.addItem(spacerItem3)
+        
+
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -131,8 +189,10 @@ class Ui_MainWindow(object):
         spacerItem10 = QtWidgets.QSpacerItem(797, 30, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem10, 0, 0, 1, 1)
         self.verticalLayout.addWidget(self.groupBox_3)
+        '''
         spacerItem11 = QtWidgets.QSpacerItem(20, 288, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem11)
+
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
@@ -164,16 +224,20 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
-        self.label_2.setText(_translate("MainWindow", "Ну и помойка"))
-        self.groupBox_2.setTitle(_translate("MainWindow", "GroupBox"))
-        self.label_3.setText(_translate("MainWindow", "Ну и помойка"))
-        self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
-        self.label_4.setText(_translate("MainWindow", "Ну и помойка"))
+        #self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
+        #self.label_2.setText(_translate("MainWindow", "Ну и помойка"))
+        #self.groupBox_2.setTitle(_translate("MainWindow", "GroupBox"))
+        #self.label_3.setText(_translate("MainWindow", "Ну и помойка"))
+        #self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
+        #self.label_4.setText(_translate("MainWindow", "Ну и помойка"))
         self.label.setText(_translate("MainWindow", "Copyright Petrovich.inc"))
         self.menu.setTitle(_translate("MainWindow", "Файл"))
         self.menu_2.setTitle(_translate("MainWindow", "Соединение"))
         self.action.setText(_translate("MainWindow", "Добавить"))
         self.action_3.setText(_translate("MainWindow", "Удалить"))
+
+    def createLog(self):
+        self.LogList.append(self.dd(self.centralwidget, self.verticalLayout, len(self.LogList)))
+
 
 from switch import SwitchButton

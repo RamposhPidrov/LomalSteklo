@@ -10,21 +10,27 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-
-
-        self.ui.switch1.clicked(self.MyFunction)
-        self.ui.switch1_2.clicked(self.MyFunction)
-        self.ui.switch1_3.clicked(self.MyFunction)
+        self.EventBound()
+        #self.ui.switch1.clicked(self.MyFunction)
+        #self.ui.switch1_2.clicked(self.MyFunction)
+        #self.ui.switch1_3.clicked(self.MyFunction)
 
 
     def MyFunction(self, master):
         d = {True: 290, False: 100}
         bool = master._value
         master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))
-        master.parent().children()[list(map(lambda x: str(x).find('QFrame'), self.ui.switch1.parent().children())).index(17)].setVisible(bool)
-
-
+        master.parent().children()[list(map(lambda x: str(x).find('QFrame'), master.parent().children())).index(17)].setVisible(bool)
+        self.NewLog()
         print('HUI')
+
+    def NewLog(self):
+        self.ui.createLog()
+        self.EventBound()
+
+    def EventBound(self):
+        for i in self.ui.LogList:
+            i.dict['switch'].clicked(self.MyFunction)
 
 if __name__=="__main__":
     app = QtWidgets.QApplication(sys.argv)
