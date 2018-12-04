@@ -69,11 +69,11 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
-        self.scrollArea.setMinimumSize(QtCore.QSize(0, 1000))
+        #self.scrollArea.setMinimumSize(QtCore.QSize(0, 1000))
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1635, 1000))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1635, 1600))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -93,8 +93,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addItem(self.spacerItem14)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout.addWidget(self.scrollArea)
-        self.spacerItem11 = QtWidgets.QSpacerItem(20, 288, QtWidgets.QSizePolicy.Minimum,
-                                                  QtWidgets.QSizePolicy.Expanding)
+        self.spacerItem11 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Maximum,
+                                                  QtWidgets.QSizePolicy.Maximum)
 
         self.verticalLayout.addItem(self.spacerItem11)
 
@@ -155,5 +155,9 @@ class Ui_MainWindow(object):
             self.verticalLayout_2.addItem(self.spacerItem14)
             #self.verticalLayout.addWidget(self.label)
 
+
+    def deleteLog(self):
+        self.LogList[-1].dict['groupBox'].setVisible(False)
+        self.LogList.remove(self.LogList[-1])
 
 from switch import SwitchButton

@@ -13,6 +13,7 @@ class MyWin(QtWidgets.QMainWindow):
 
         self.EventBound()
         self.ui.action.triggered.connect(self.NewLog)
+        self.ui.action_3.triggered.connect(self.DeleteLog)
         #self.ui.action.toggled.connect(self.NewLog)  # .changed().connect()
         #self.ui.switch1.clicked(self.MyFunction)
        # self.ui.switch1_2.clicked(self.MyFunction)
@@ -33,6 +34,9 @@ class MyWin(QtWidgets.QMainWindow):
     def NewLog(self):
         self.ui.createLog()
         self.EventBound()
+
+    def DeleteLog(self):
+        self.ui.deleteLog()
 
     def EventBound(self):
 
