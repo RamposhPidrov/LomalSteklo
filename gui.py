@@ -34,7 +34,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
         self.groupBox.setSizePolicy(sizePolicy)
-        self.groupBox.setMinimumSize(QtCore.QSize(0, 100))
+        self.groupBox.setMinimumSize(QtCore.QSize(0, 60))
         self.groupBox.setMaximumSize(QtCore.QSize(16777215, 300))
         self.groupBox.setObjectName("groupBox")
         self.gridLayout = QtWidgets.QGridLayout(self.groupBox)

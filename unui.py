@@ -22,7 +22,7 @@ class MyWin(QtWidgets.QMainWindow):
 
 
     def MyFunction(self, master):
-        d = {True: 290, False: 70}
+        d = {True: 290, False: 60}
         bool = master._value
         master.parent().setMinimumSize(QtCore.QSize(16777215, d[bool]))
         master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))
