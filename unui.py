@@ -1,6 +1,7 @@
 import sys
 # Импортируем наш интерфейс из файла
-from gui import *
+#from Extend import *
+from Extend import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from switch import SwitchButton
 
@@ -11,17 +12,21 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         self.EventBound()
+        self.ui.action.triggered.connect(self.NewLog)
+        #self.ui.action.toggled.connect(self.NewLog)  # .changed().connect()
         #self.ui.switch1.clicked(self.MyFunction)
-        #self.ui.switch1_2.clicked(self.MyFunction)
+       # self.ui.switch1_2.clicked(self.MyFunction)
         #self.ui.switch1_3.clicked(self.MyFunction)
+        #self.ui.pushButton.clicked.connect()
 
 
     def MyFunction(self, master):
         d = {True: 290, False: 100}
         bool = master._value
+        master.parent().setMinimumSize(QtCore.QSize(16777215, d[bool]))
         master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))
         master.parent().children()[list(map(lambda x: str(x).find('QFrame'), master.parent().children())).index(17)].setVisible(bool)
-        self.NewLog()
+        #self.NewLog()
         print('HUI')
         print()
 
@@ -30,6 +35,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.EventBound()
 
     def EventBound(self):
+
         for i in self.ui.LogList:
             i.dict['switch'].clicked(self.MyFunction)
 
