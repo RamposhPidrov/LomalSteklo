@@ -18,8 +18,8 @@ class Ui_MainWindow(object):
             sizePolicy.setVerticalStretch(0)
             sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
             self.groupBox.setSizePolicy(sizePolicy)
-            self.groupBox.setMinimumSize(QtCore.QSize(0, 100))
-            self.groupBox.setMaximumSize(QtCore.QSize(16777215, 100))
+            self.groupBox.setMinimumSize(QtCore.QSize(0, 70))
+            self.groupBox.setMaximumSize(QtCore.QSize(16777215, 70))
             self.groupBox.setObjectName("groupBox{0}".format(i))
             self.gridLayout = QtWidgets.QGridLayout(self.groupBox)
             self.gridLayout.setObjectName("gridLayout{0}".format(i))
@@ -51,17 +51,19 @@ class Ui_MainWindow(object):
             self.label_2.setObjectName("label_2{0}".format(i))
             self.gridLayout.addWidget(self.inFrame, 2, 0, 1, 1)
             verticalLayout.addWidget(self.groupBox)
-            spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+            spacerItem3 = QtWidgets.QSpacerItem(10, 1, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
             verticalLayout.addItem(spacerItem3)
 
             self.dict = {
                 'groupBox': self.groupBox,
-                'switch': self.switch1
+                'switch': self.switch1,
+                'text': self.label_2
             }
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1193, 728)
+        #self.WindCopy = MainWindow
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -125,25 +127,30 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self._translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(self._translate("MainWindow", "MainWindow"))
         # self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
         # self.label_2.setText(_translate("MainWindow", "Ну и помойка"))
         # self.groupBox_2.setTitle(_translate("MainWindow", "GroupBox"))
         # self.label_3.setText(_translate("MainWindow", "Ну и помойка"))
         # self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
         # self.label_4.setText(_translate("MainWindow", "Ну и помойка"))
-        self.label.setText(_translate("MainWindow", "Copyright Petrovich.inc"))
-        self.menu.setTitle(_translate("MainWindow", "Файл"))
-        self.menu_2.setTitle(_translate("MainWindow", "Соединение"))
-        self.action.setText(_translate("MainWindow", "Добавить"))
-        self.action_3.setText(_translate("MainWindow", "Удалить"))
+        self.label.setText(self._translate("MainWindow", "Copyright Petrovich.inc"))
+        self.menu.setTitle(self._translate("MainWindow", "Файл"))
+        self.menu_2.setTitle(self._translate("MainWindow", "Соединение"))
+        self.action.setText(self._translate("MainWindow", "Добавить"))
+        self.action_3.setText(self._translate("MainWindow", "Удалить"))
+
+
 
     def createLog(self):
         if len(self.LogList) != 0:
             self.verticalLayout_2.removeItem(self.spacerItem14)
             #self.verticalLayout.removeWidget(self.label)
         self.LogList.append(self.dd(self.scrollAreaWidgetContents, self.verticalLayout_2, len(self.LogList)))
+        #self.label_2.setText("Ну и помойка")
+        self.LogList[-1].dict['text'].setText('Ну и помойка')
+        self.LogList[-1].dict['groupBox'].setTitle('Соединие{0}'.format(len(self.LogList)))
         if len(self.LogList) != 1:
             self.verticalLayout_2.addItem(self.spacerItem14)
             #self.verticalLayout.addWidget(self.label)
