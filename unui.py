@@ -32,15 +32,15 @@ class MyWin(QtWidgets.QMainWindow):
         print()
 
     def NewLog(self):
-        self.ui.createLog()
+        self.ui.createConnection()
         self.EventBound()
 
     def DeleteLog(self):
-        self.ui.deleteLog()
+        self.ui.deleteConnection()
 
     def EventBound(self):
 
-        for i in self.ui.LogList:
+        for i in self.ui.ConList:
             i.dict['switch'].clicked(self.MyFunction)
 
 if __name__=="__main__":

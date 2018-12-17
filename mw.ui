@@ -584,6 +584,58 @@
      </spacer>
     </item>
     <item>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="cornerButtonEnabled">
+       <bool>true</bool>
+      </property>
+      <row>
+       <property name="text">
+        <string> </string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>Устройство</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Код</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Описание</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Дата</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>Мой хуй</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>123</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>Ты пидор</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>01.01.2012</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
      <widget class="QLabel" name="label">
       <property name="text">
        <string>Copyright Petrovich.inc</string>

@@ -84,8 +84,8 @@ class Ui_MainWindow(object):
 
 
 
-        self.LogList = []
-        self.createLog()
+        self.ConList = []
+        self.createConnection()
 
 
 
@@ -97,7 +97,31 @@ class Ui_MainWindow(object):
                                                   QtWidgets.QSizePolicy.Maximum)
 
         self.verticalLayout.addItem(self.spacerItem11)
+        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(4)
+        self.tableWidget.setRowCount(1)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(3, item)
+        self.tableWidget.setMinimumSize(QtCore.QSize(0, 200))
+        self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 200))
 
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(0, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(0, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(0, 2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(0, 3, item)
+
+        self.verticalLayout.addWidget(self.tableWidget)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
@@ -128,7 +152,27 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         self._translate = QtCore.QCoreApplication.translate
+        _translate = self._translate
         MainWindow.setWindowTitle(self._translate("MainWindow", "MainWindow"))
+        item = self.tableWidget.horizontalHeaderItem(0)
+        item.setText(self._translate("MainWindow", "Устройство"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(self._translate("MainWindow", "Код"))
+        item = self.tableWidget.horizontalHeaderItem(2)
+        item.setText(self._translate("MainWindow", "Описание"))
+        item = self.tableWidget.horizontalHeaderItem(3)
+        item.setText(self._translate("MainWindow", "Дата"))
+        item = self.tableWidget.verticalHeaderItem(0)
+        __sortingEnabled = self.tableWidget.isSortingEnabled()
+        self.tableWidget.setSortingEnabled(False)
+        item = self.tableWidget.item(0, 0)
+        item.setText(self._translate("MainWindow", "Мой хуй"))
+        item = self.tableWidget.item(0, 1)
+        item.setText(self._translate("MainWindow", "123"))
+        item = self.tableWidget.item(0, 2)
+        item.setText(self._translate("MainWindow", "Ты пидор"))
+        item = self.tableWidget.item(0, 3)
+        item.setText(self._translate("MainWindow", "01.01.2012"))
         # self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
         # self.label_2.setText(_translate("MainWindow", "Ну и помойка"))
         # self.groupBox_2.setTitle(_translate("MainWindow", "GroupBox"))
@@ -143,21 +187,21 @@ class Ui_MainWindow(object):
 
 
 
-    def createLog(self):
-        if len(self.LogList) != 0:
+    def createConnection(self):
+        if len(self.ConList) != 0:
             self.verticalLayout_2.removeItem(self.spacerItem14)
             #self.verticalLayout.removeWidget(self.label)
-        self.LogList.append(self.dd(self.scrollAreaWidgetContents, self.verticalLayout_2, len(self.LogList)))
+        self.ConList.append(self.dd(self.scrollAreaWidgetContents, self.verticalLayout_2, len(self.ConList)))
         #self.label_2.setText("Ну и помойка")
-        self.LogList[-1].dict['text'].setText('Ну и помойка')
-        self.LogList[-1].dict['groupBox'].setTitle('Соединие{0}'.format(len(self.LogList)))
-        if len(self.LogList) != 1:
+        self.ConList[-1].dict['text'].setText('Ну и помойка')
+        self.ConList[-1].dict['groupBox'].setTitle('Соединие{0}'.format(len(self.ConList)))
+        if len(self.ConList) != 1:
             self.verticalLayout_2.addItem(self.spacerItem14)
             #self.verticalLayout.addWidget(self.label)
 
 
-    def deleteLog(self):
-        self.LogList[-1].dict['groupBox'].setVisible(False)
-        self.LogList.remove(self.LogList[-1])
+    def deleteConnection(self):
+        self.ConList[-1].dict['groupBox'].setVisible(False)
+        self.ConList.remove(self.ConList[-1])
 
 from switch import SwitchButton
