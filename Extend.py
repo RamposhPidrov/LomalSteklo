@@ -23,6 +23,11 @@ class Ui_MainWindow(object):
             self.groupBox.setObjectName("groupBox{0}".format(i))
             self.gridLayout = QtWidgets.QGridLayout(self.groupBox)
             self.gridLayout.setObjectName("gridLayout{0}".format(i))
+            self.pushButton2 = QtWidgets.QPushButton(self.groupBox)
+            self.pushButton2.setStyleSheet("background-image: url(:/images/garbage_red.png);")
+            self.pushButton2.setText("")
+            self.pushButton2.setObjectName("pushButton2")
+            self.pushButton2.setIcon(QtGui.QIcon("images/garbage_red.png"))
             self.switch1 = SwitchButton(self.groupBox)
             self.switch1.setMinimumSize(QtCore.QSize(70, 25))
             self.switch1.setMaximumSize(QtCore.QSize(16777215, 25))
@@ -30,13 +35,14 @@ class Ui_MainWindow(object):
             self.switch1.setAutoFillBackground(False)
             self.switch1.setObjectName("switch1{0}".format(i))
             self.gridLayout.addWidget(self.switch1, 0, 1, 1, 1)
+            self.gridLayout.addWidget(self.pushButton2, 0, 4, 4, 4)
             spacerItem = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
             self.gridLayout.addItem(spacerItem, 0, 2, 1, 1)
             spacerItem1 = QtWidgets.QSpacerItem(797, 30, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
             self.gridLayout.addItem(spacerItem1, 0, 0, 1, 1)
             spacerItem2 = QtWidgets.QSpacerItem(10, 10, QtWidgets.QSizePolicy.Minimum,
                                                 QtWidgets.QSizePolicy.MinimumExpanding)
-            self.gridLayout.addItem(spacerItem2, 1, 0, 1, 1)
+            self.gridLayout.addItem(spacerItem2, 4, 0, 1, 1)
             self.inFrame = QtWidgets.QFrame(self.groupBox)
             self.inFrame.setEnabled(True)
             self.inFrame.setMinimumSize(QtCore.QSize(0, 200))
@@ -57,7 +63,8 @@ class Ui_MainWindow(object):
             self.dict = {
                 'groupBox': self.groupBox,
                 'switch': self.switch1,
-                'text': self.label_2
+                'text': self.label_2,
+                'delete': self.pushButton2
             }
 
     def setupUi(self, MainWindow):
