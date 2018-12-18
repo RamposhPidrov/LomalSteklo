@@ -31,7 +31,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.action.triggered.connect(self.NewConnection)
         self.ui.action_3.triggered.connect(self.DeleteConnection)
         self.Mem = []
-
+        self.LastBtnId = None
         #self.ui.action.toggled.connect(self.NewLog)  # .changed().connect()
         #self.ui.switch1.clicked(self.MyFunction)
        # self.ui.switch1_2.clicked(self.MyFunction)
@@ -58,11 +58,13 @@ class MyWin(QtWidgets.QMainWindow):
         #self.EventBound()
 
     def DeleteConnection(self):
-        self.ui.deleteConnection()
+
+        self.ui.deleteCon(self.LastBtnId)
 
     def EventBound(self):
         for i in self.ui.ConList:
             i.dict['switch'].clicked(self.MyFunction)
+            i.dict['delete'].clicked.connect(self.DeleteConnection)
             #self.MyFunction((i.dict['switch']))
         self.MyFunction(self.ui.ConList[-1].dict['switch'])
 

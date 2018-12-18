@@ -64,7 +64,8 @@ class Ui_MainWindow(object):
                 'groupBox': self.groupBox,
                 'switch': self.switch1,
                 'text': self.label_2,
-                'delete': self.pushButton2
+                'delete': self.pushButton2,
+                'id': i
             }
 
     def setupUi(self, MainWindow):
@@ -215,6 +216,10 @@ class Ui_MainWindow(object):
         self.ConList[-1].dict['groupBox'].setTitle('{0}'.format(name))
         if len(self.ConList) != 1:
             self.verticalLayout_2.addItem(self.spacerItem14)
+
+    def deleteCon(self, id):
+        self.ConList[id].dict['groupBox'].setVisible(False)
+        self.ConList.remove(self.ConList[id])
 
 
     def deleteConnection(self):
