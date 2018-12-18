@@ -1,7 +1,10 @@
 from pysnmp.hlapi import *
+import pysnmp
 import logging
+import datetime
+from ipaddress import *
 
-
+# ctrl+alt+shift+J
 class Connection:
 
     def __init__(self, ip, c, p):
@@ -31,19 +34,19 @@ class Connection:
                 for varBind in varBinds:
                     print(' = '.join([x.prettyPrint() for x in varBind]))
 
-    def snmp_getcmd(self, OID):
+    def get_cmd(self, command):
         return (getCmd(SnmpEngine(),
                        CommunityData(self.community),
                        UdpTransportTarget((self.ipaddr, self.port)),
                        ContextData(),
-                       ObjectType(ObjectIdentity(OID))))
+                       ObjectType(command)))
 
-    def get_oid(self, OID):
-        errorIndication, errorStatus, errorIndex, varBinds = next(self.snmp_getcmd(OID))
+    def get_oid(self, OID): #main cmd, takind next oid
+        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd(OID))
         for name, val in varBinds:
             return (val.prettyPrint())
 
-    def snmp_getnextcmd(self, OID):
+    def snmp_getnextoid(self, OID):
         return (nextCmd(SnmpEngine(),
                         CommunityData(self.community),
                         UdpTransportTarget((self.ipaddr, self.port)),
@@ -54,57 +57,82 @@ class Connection:
 
         return
 
-    def get_baseinfo(self): #Linux typidor 3.10.0-862.14.4.el7.x86_64 #1 SMP Wed Sep 26 15:12:11 UTC 2018 x86_64
-        return test.get_oid('1.3.6.1.2.1.1.1.0')
+    def get_systeminfo(self): #Linux typidor 3.10.0-862.14.4.el7.x86_64 #1 SMP Wed Sep 26 15:12:11 UTC 2018 x86_64
+        return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0))
 
-    def snmp_getnextcmd_next(self, OID, file):
-        # метод обрабатывает class generator от def snmp_getnext
-        # OID - это список OID в виде list_OID = [OID_ipAdEntAddr,OID_ipAdEntIfIndex,OID_ipAdEntNetMask], где переменные строковые значения
-        # в виде '1.2.3.4'
-        # возвращаем двумерный список со значениями, по количеству OID
-        list_result = []  # для формирования списков первого уровня
-        list_result2 = []  # итоговый список
-        g = (snmp_getnextcmd(community, ip, port, OID[0]))  # начинаем с первого OID
-        varBinds = 0
-        flag = True
-        for oid in list_OID:
-            if varBinds != 0:
-                for name, val in varBinds:
-                    list_result2.append(list_result)
-                    list_result = []
-                    list_result.append(val.prettyPrint())
-            i = 0
-            while i <= 0:  # по списку
-                errorIndication, errorStatus, errorIndex, varBinds = next(g)
-                if errors(errorIndication, errorStatus, errorIndex, ip_address_host, file):
-                    if str(varBinds).find(oid) != -1:
-                        i = 0
-                        for name, val in varBinds:
-                            list_result.append(val.prettyPrint())
-                    else:
-                        i = i + 1
-                        flag = False
-                else:
-                    file.write(datetime.strftime(datetime.now(),
-                                                 "%Y.%m.%d %H:%M:%S") + ' : ' + 'Error snmp_getnextcmd_next ip = ' + ip + ' OID = ' +
-                               OID[0] + '\n')
-                    print('Error snmp_getnextcmd_next ', False)
-                    i = i + 1
-                    flag = False
-        list_result2.append(list_result)
-        return list_result2
+    def get_ifrouter(self): #маршрутиризатор ли устройство
+        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addAsn1MibSource('file:///usr/share/snmp',
+                                                                                 'http://mibs.snmplabs.com/asn1/@mib@'))))
+        for varBind in varBinds:
+            if(varBind=='notForwarding'):
+               return(0)
+            else: return(1)
 
+    def get_interfaces(self):
+        resultlist=[] #финальный лист листов, каждый лист хранит [индекс, название, айпи, маска]
+        iplist=[]
+        masklist=[]
+        indlist = []  # хранит индексы интерфейсов
+        flag=1
 
+        oid_generator = (self.snmp_getnextoid('1.3.6.1.2.1.4.20.1.1'))
 
+        while(flag==1): #получение индексов, ipv4, масок
+            errorIndication, errorStatus, errorIndex, varBinds =next(oid_generator)
+            for varbind in varBinds:
+                if(str(varbind).find('mib-2.4.20.1.1')!=-1):
+                    iplist.append(str(varbind).split(' ')[-1])
+                if(str(varbind).find('mib-2.4.20.1.2')!=-1):
+                    indlist.append(str(varbind).split(' ')[-1])
+                elif (str(varbind).find('mib-2.4.20.1.3') != -1):
+                    masklist.append(str(varbind).split(' ')[-1])
+                elif(len(masklist)>0):
+                    flag = 0
 
+        for ind in range(0, len(indlist)): #получение названия интерфейсов и объединение всего в resultlist
+            templist=[]
 
+            path='1.3.6.1.2.1.31.1.1.1.1.' + str(ind) #имя
+            d = (self.snmp_getnextoid(path))
+            errorIndication, errorStatus, errorIndex, varBinds = next(d)
+            templist.append(ind)
+            for varbind in varBinds:
+                templist.append(str(varbind).split(' ')[-1])
+            templist.append(iplist[ind])
+            templist.append(masklist[ind])
+            resultlist.append(templist)
 
+            g = (self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0)))
 
+        return resultlist
 
 test = Connection('192.168.1.107', 'public', 161)
-print(test.snmp_getnextcmd('1.3.6.1.2.1.4.20.1.1'))
 
-g = (test.snmp_getnextcmd('1.3.6.1.2.1.4.20.1.1'))
+print(test.get_interfaces())
+
+'''
+        OID_ipAdEntAddr = '1.3.6.1.2.1.4.20.1.1'  # From SNMPv2-MIB ip адреса
+        OID_ifNumber = '1.3.6.1.2.1.2.1.0'  # From RFC1213-MIB количество интерфейсов ifindex
+        OID_sysName = '1.3.6.1.2.1.1.5.0'  # From SNMPv2-MIB hostname/sysname
+        OID_ipAdEntIfIndex = '1.3.6.1.2.1.4.20.1.2'  # From SNMPv2-MIB ifindex interface
+        OID_ipAdEntNetMask = '1.3.6.1.2.1.4.20.1.3'  # From SNMPv2-MIB
+        OID_ifAlias = '1.3.6.1.2.1.31.1.1.1.18'  # Desc интерфейса. для получения к OID надо добавить ifindex
+        OID_ifName = '1.3.6.1.2.1.31.1.1.1.1'  # название интерфейса к OID надо добавить ifindex
+        varBinds = 0        
+'''
+
+
+
+
+'''
+for varBind in varBinds:
+    print(' = '.join([x.prettyPrint() for x in varBind]))
+
+
+
+print(test.snmp_getnextoid('1.3.6.1.2.1.4.20.1.1'))
+
+g = (test.snmp_getnextoid('1.3.6.1.2.1.4.20.1.1'))
 print(g)
 errorIndication, errorStatus, errorIndex, varBinds = next(g)
 for i in range(0,20):
@@ -115,3 +143,4 @@ for i in range(0,20):
 print('========')
 for name,val in varBinds:
         print(name.prettyPrint(),' ====== ',val.prettyPrint())
+'''
