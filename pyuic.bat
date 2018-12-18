@@ -1,1 +1,1 @@
-pyuic5 -o gui.py "%~1" 
+pyuic5 -o connection.py "%~1" 

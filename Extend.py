@@ -197,7 +197,17 @@ class Ui_MainWindow(object):
         self.ConList[-1].dict['groupBox'].setTitle('Соединие{0}'.format(len(self.ConList)))
         if len(self.ConList) != 1:
             self.verticalLayout_2.addItem(self.spacerItem14)
-            #self.verticalLayout.addWidget(self.label)
+
+    def createCon(self, name):
+        if len(self.ConList) != 0:
+            self.verticalLayout_2.removeItem(self.spacerItem14)
+            #self.verticalLayout.removeWidget(self.label)
+        self.ConList.append(self.dd(self.scrollAreaWidgetContents, self.verticalLayout_2, len(self.ConList)))
+        #self.label_2.setText("Ну и помойка")
+        self.ConList[-1].dict['text'].setText('Ну и помойка')
+        self.ConList[-1].dict['groupBox'].setTitle('{0}'.format(name))
+        if len(self.ConList) != 1:
+            self.verticalLayout_2.addItem(self.spacerItem14)
 
 
     def deleteConnection(self):

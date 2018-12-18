@@ -2,8 +2,24 @@ import sys
 # Импортируем наш интерфейс из файла
 #from Extend import *
 from Extend import *
+import connection
 from PyQt5 import QtCore, QtGui, QtWidgets
 from switch import SwitchButton
+
+class ConWin(QtWidgets.QMainWindow):
+    def __init__(self, parent=None, func=None, f2=None):
+        QtWidgets.QWidget.__init__(self, parent)
+        self.con = connection.Ui_MainWindow()
+        self.con.setupUi(self)
+        self.f = func
+        self.f2 = f2
+        self.con.pushButton.clicked.connect(self.submit)
+
+    def submit(self):
+        self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
+        self.f2()
+        self.close()
+        self.destroy()
 
 class MyWin(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -12,8 +28,9 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         self.EventBound()
-        self.ui.action.triggered.connect(self.NewLog)
-        self.ui.action_3.triggered.connect(self.DeleteLog)
+        self.ui.action.triggered.connect(self.NewConnection)
+        self.ui.action_3.triggered.connect(self.DeleteConnection)
+        self.Mem = []
         #self.ui.action.toggled.connect(self.NewLog)  # .changed().connect()
         #self.ui.switch1.clicked(self.MyFunction)
        # self.ui.switch1_2.clicked(self.MyFunction)
@@ -31,15 +48,19 @@ class MyWin(QtWidgets.QMainWindow):
         print('HUI')
         print()
 
-    def NewLog(self):
-        self.ui.createConnection()
-        self.EventBound()
+    def NewConnection(self):
 
-    def DeleteLog(self):
+        con = ConWin(func=self.ui.createCon, f2=self.EventBound)
+        self.Mem.append(con)
+        con.show()
+        print(self.Mem)
+        #self.ui.createConnection()
+        #self.EventBound()
+
+    def DeleteConnection(self):
         self.ui.deleteConnection()
 
     def EventBound(self):
-
         for i in self.ui.ConList:
             i.dict['switch'].clicked(self.MyFunction)
 
