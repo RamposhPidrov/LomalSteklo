@@ -4,7 +4,8 @@ import logging
 import datetime
 from ipaddress import *
 
-# ctrl+alt+shift+J
+
+#ctrl+alt+shift+J
 class Connection:
 
     def __init__(self, ip, c, p):
@@ -53,9 +54,12 @@ class Connection:
                         ContextData(),
                         ObjectType(ObjectIdentity(OID))))
 
-    def set_oid(self, OID):
-
-        return
+    def set_oid(self, OID, new):
+        return (setCmd(SnmpEngine(),
+                        CommunityData(self.community),
+                        UdpTransportTarget((self.ipaddr, self.port)),
+                        ContextData(),
+                        ObjectType(OID,new)))
 
     def get_systeminfo(self): #Linux typidor 3.10.0-862.14.4.el7.x86_64 #1 SMP Wed Sep 26 15:12:11 UTC 2018 x86_64
         return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0))
@@ -74,9 +78,7 @@ class Connection:
         masklist=[]
         indlist = []  # хранит индексы интерфейсов
         flag=1
-
         oid_generator = (self.snmp_getnextoid('1.3.6.1.2.1.4.20.1.1'))
-
         while(flag==1): #получение индексов, ipv4, масок
             errorIndication, errorStatus, errorIndex, varBinds =next(oid_generator)
             for varbind in varBinds:
@@ -89,26 +91,34 @@ class Connection:
                 elif(len(masklist)>0):
                     flag = 0
 
-        for ind in range(0, len(indlist)): #получение названия интерфейсов и объединение всего в resultlist
+        for ind in range(1, len(indlist)+1): #получение названия интерфейсов и объединение всего в resultlist
+                                             #Результат: [индекс, айпи, маска, название, тип интерфейса, MTU, скорость, физический адресс]
             templist=[]
-
-            path='1.3.6.1.2.1.31.1.1.1.1.' + str(ind) #имя
-            d = (self.snmp_getnextoid(path))
-            errorIndication, errorStatus, errorIndex, varBinds = next(d)
             templist.append(ind)
-            for varbind in varBinds:
-                templist.append(str(varbind).split(' ')[-1])
-            templist.append(iplist[ind])
-            templist.append(masklist[ind])
+            templist.append(iplist[ind-1])
+            templist.append(masklist[ind-1])
+            errorIndication, errorStatus, errorIndex,varBinds = next(getCmd(SnmpEngine(),
+                                      CommunityData(self.community),
+                                      UdpTransportTarget((self.ipaddr, self.port)),
+                                      ContextData(),
+                                      ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind)),
+                                      ObjectType(ObjectIdentity('IF-MIB', 'ifType',ind)),
+                                      ObjectType(ObjectIdentity('IF-MIB', 'ifMtu',ind)),
+                                      ObjectType(ObjectIdentity('IF-MIB', 'ifSpeed',ind)),
+                                      ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind)),
+                                      ))
+            for varBind in varBinds:
+                templist.append(' = '.join([x.prettyPrint() for x in varBind]).split(' ')[-1])
+                print(' = '.join([x.prettyPrint() for x in varBind]))
+
             resultlist.append(templist)
-
-            g = (self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0)))
-
         return resultlist
 
-test = Connection('192.168.1.107', 'public', 161)
+test = Connection('192.168.43.50', 'public', 161)
 
 print(test.get_interfaces())
+
+#print(test.set_oid('1.3.6.1.2.1.4.20.1.1.1'))
 
 '''
         OID_ipAdEntAddr = '1.3.6.1.2.1.4.20.1.1'  # From SNMPv2-MIB ip адреса
