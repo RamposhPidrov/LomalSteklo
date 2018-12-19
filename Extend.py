@@ -65,8 +65,14 @@ class Ui_MainWindow(object):
                 'switch': self.switch1,
                 'text': self.label_2,
                 'delete': self.pushButton2,
-                'id': i
+                'isDeleted': False
             }
+
+            self.pushButton2.clicked.connect(self.DeleteConnection)
+
+        def DeleteConnection(self):
+            self.dict['groupBox'].setVisible(False)
+            self.dict['isDeleted'] = True
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -105,6 +111,7 @@ class Ui_MainWindow(object):
                                                   QtWidgets.QSizePolicy.Maximum)
 
         self.verticalLayout.addItem(self.spacerItem11)
+        '''
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(4)
@@ -119,7 +126,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(3, item)
         self.tableWidget.setMinimumSize(QtCore.QSize(0, 200))
         self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 200))
-
+   
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setItem(0, 0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -128,8 +135,9 @@ class Ui_MainWindow(object):
         self.tableWidget.setItem(0, 2, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setItem(0, 3, item)
-
+   
         self.verticalLayout.addWidget(self.tableWidget)
+     '''
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
@@ -162,6 +170,7 @@ class Ui_MainWindow(object):
         self._translate = QtCore.QCoreApplication.translate
         _translate = self._translate
         MainWindow.setWindowTitle(self._translate("MainWindow", "MainWindow"))
+        '''
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(self._translate("MainWindow", "Устройство"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -181,6 +190,7 @@ class Ui_MainWindow(object):
         item.setText(self._translate("MainWindow", "Ты пидор"))
         item = self.tableWidget.item(0, 3)
         item.setText(self._translate("MainWindow", "01.01.2012"))
+        '''
         # self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
         # self.label_2.setText(_translate("MainWindow", "Ну и помойка"))
         # self.groupBox_2.setTitle(_translate("MainWindow", "GroupBox"))

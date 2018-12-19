@@ -58,14 +58,11 @@ class MyWin(QtWidgets.QMainWindow):
         #self.EventBound()
 
     def DeleteConnection(self):
-
         self.ui.deleteCon(self.LastBtnId)
 
     def EventBound(self):
         for i in self.ui.ConList:
             i.dict['switch'].clicked(self.MyFunction)
-            i.dict['delete'].clicked.connect(self.DeleteConnection)
-            #self.MyFunction((i.dict['switch']))
         self.MyFunction(self.ui.ConList[-1].dict['switch'])
 
 if __name__=="__main__":
