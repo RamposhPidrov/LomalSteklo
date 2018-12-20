@@ -92,7 +92,7 @@ class Connection:
                     flag = 0
 
         for ind in range(1, len(indlist)+1): #получение названия интерфейсов и объединение всего в resultlist
-                                             #Результат: [индекс, айпи, маска, название, тип интерфейса, MTU, скорость, физический адресс]
+                                             #Результат: [индекс, айпи, маска, название, состояние, тип интерфейса, MTU, скорость, физический адресс]
             templist=[]
             templist.append(ind)
             templist.append(iplist[ind-1])
@@ -101,22 +101,23 @@ class Connection:
                                       CommunityData(self.community),
                                       UdpTransportTarget((self.ipaddr, self.port)),
                                       ContextData(),
-                                      ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind)),
+                                      ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind)),  ObjectType(ObjectIdentity('IF-MIB', 'ifOperStatus',ind)),
                                       ObjectType(ObjectIdentity('IF-MIB', 'ifType',ind)),
                                       ObjectType(ObjectIdentity('IF-MIB', 'ifMtu',ind)),
                                       ObjectType(ObjectIdentity('IF-MIB', 'ifSpeed',ind)),
                                       ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind)),
                                       ))
             for varBind in varBinds:
-                templist.append(' = '.join([x.prettyPrint() for x in varBind]).split(' ')[-1])
+                templist.append(' '.join([x.prettyPrint() for x in varBind]).split(' ')[-1])
                 print(' = '.join([x.prettyPrint() for x in varBind]))
 
             resultlist.append(templist)
         return resultlist
 
-test = Connection('192.168.43.50', 'public', 161)
+#test = Connection('192.168.43.50', 'public', 161)
+typidor=[[1, '127.0.0.1', '255.0.0.0', 'lo', 'up', 'softwareLoopback', '65536', '10000000', ''], [2, '192.168.43.50', '255.255.255.0', 'enp0s3', 'up', 'ethernetCsmacd', '1500', '1000000000', '08:00:27:e9:3e:c3']]
 
-print(test.get_interfaces())
+#print(test.get_interfaces())
 
 #print(test.set_oid('1.3.6.1.2.1.4.20.1.1.1'))
 
