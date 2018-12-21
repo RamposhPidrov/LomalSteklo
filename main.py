@@ -141,7 +141,7 @@ class Connection:
             resultlist.append(templist)
         return resultlist
 
-test = Connection('192.168.1.107', 'public', 161)
+test = Connection('127.0.0.1', 'group1', 161)
 
 print(test.get_interfaces())
 
