@@ -81,6 +81,12 @@
             <height>500</height>
            </size>
           </property>
+          <property name="statusTip">
+           <string extracomment="3"/>
+          </property>
+          <property name="whatsThis">
+           <string extracomment="3"/>
+          </property>
           <property name="title">
            <string>GroupBox</string>
           </property>

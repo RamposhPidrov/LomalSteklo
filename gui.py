@@ -41,6 +41,8 @@ class Ui_MainWindow(object):
         self.groupBox.setSizePolicy(sizePolicy)
         self.groupBox.setMinimumSize(QtCore.QSize(0, 500))
         self.groupBox.setMaximumSize(QtCore.QSize(16777215, 500))
+        self.groupBox.setStatusTip("")
+        self.groupBox.setWhatsThis("")
         self.groupBox.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.groupBox.setFlat(False)
         self.groupBox.setCheckable(False)

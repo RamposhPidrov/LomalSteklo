@@ -40,7 +40,7 @@ class MyWin(QtWidgets.QMainWindow):
 
 
     def MyFunction(self, master):
-        d = {True: 590, False: 60}
+        d = {True: 60 + 210 * int(master.parent().whatsThis()), False: 60}
         bool = master._value
         master.parent().setMinimumSize(QtCore.QSize(16777215, d[bool]))
         master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))

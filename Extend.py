@@ -23,6 +23,7 @@ class Ui_MainWindow(object):
             self.groupBox.setMinimumSize(QtCore.QSize(0, 70))
             self.groupBox.setMaximumSize(QtCore.QSize(16777215, 70))
             self.groupBox.setObjectName("groupBox{0}".format(i))
+
             self.gridLayout = QtWidgets.QGridLayout(self.groupBox)
             self.gridLayout.setObjectName("gridLayout{0}".format(i))
             self.pushButton2 = QtWidgets.QPushButton(self.groupBox)
@@ -48,7 +49,7 @@ class Ui_MainWindow(object):
             self.inFrame = QtWidgets.QFrame(self.groupBox)
             self.inFrame.setEnabled(True)
             self.inFrame.setMinimumSize(QtCore.QSize(0, 200))
-            self.inFrame.setMaximumSize(QtCore.QSize(16777215, 600))
+            self.inFrame.setMaximumSize(QtCore.QSize(16777215, 16777215))
             self.inFrame.setAutoFillBackground(False)
             # self.inFrame.setStyleSheet("backgroundcolor: rgb(93, 78, 255)")
             self.inFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -63,6 +64,8 @@ class Ui_MainWindow(object):
             self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
             self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
 
+            self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
+
             spacerItem8 = QtWidgets.QSpacerItem(20, 163, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
             self.verticalLayout_3.addItem(spacerItem8)
             self.gridLayout.addWidget(self.inFrame, 2, 0, 1, 1)
@@ -71,6 +74,7 @@ class Ui_MainWindow(object):
             verticalLayout.addWidget(self.groupBox)
             spacerItem3 = QtWidgets.QSpacerItem(10, 1, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
             verticalLayout.addItem(spacerItem3)
+            self.groupBox.setWhatsThis('{}'.format(len(self.Interfaces)))
 
             self.dict = {
                 'groupBox': self.groupBox,
@@ -78,7 +82,8 @@ class Ui_MainWindow(object):
                 #'text': self.intName,
                 'delete': self.pushButton2,
                 'intCount': 0,
-                'isDeleted': False
+                'isDeleted': False,
+                'int': self.Interfaces
             }
 
             self.pushButton2.clicked.connect(self.DeleteConnection)
