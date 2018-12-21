@@ -125,6 +125,7 @@ class Ui_MainWindow(object):
                 self.plainTextEdit.setReadOnly(True)
                 self.plainTextEdit.setObjectName("plainTextEdit")
                 self.gridLayout_4.addWidget(self.plainTextEdit, 1, 1, 1, 1)
+
                 layout.addWidget(self.frame)
                 spacerItem7 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum,
                                                     QtWidgets.QSizePolicy.Maximum)

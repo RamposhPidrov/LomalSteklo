@@ -1,5 +1,7 @@
 import sys
-# Импортируем наш интерфейс из файла
+import time
+import threading
+
 from Extend import *
 #from gui import *
 import connection
@@ -31,7 +33,10 @@ class ConWin(QtWidgets.QMainWindow):
         self.destroy()
 
 class MyWin(QtWidgets.QMainWindow):
+    signal_start_background_job = QtCore.pyqtSignal()
+
     def __init__(self, parent=None):
+        global delegate
         QtWidgets.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -40,11 +45,27 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.action.triggered.connect(self.NewConnection)
         self.ui.action_3.triggered.connect(self.DeleteConnection)
         self.Mem = []
+
+        delegate = self.info
+        self.worker = WorkerObject()
+        self.thread = QtCore.QThread()
+        self.worker.moveToThread(self.thread)
+
+        self.signal_start_background_job.connect(self.worker.background_job)
+        self.start_background_job()
         #self.ui.action.toggled.connect(self.NewLog)  # .changed().connect()
         #self.ui.switch1.clicked(self.MyFunction)
        # self.ui.switch1_2.clicked(self.MyFunction)
         #self.ui.switch1_3.clicked(self.MyFunction)
         #self.ui.pushButton.clicked.connect()
+
+    def start_background_job(self):
+        # No harm in calling thread.start() after the thread is already started.
+        self.thread.start()
+        self.signal_start_background_job.emit()
+
+
+
 
 
     def info(self):
@@ -54,21 +75,28 @@ class MyWin(QtWidgets.QMainWindow):
         print(Connections)
         k = 0
         for i in self.ui.ConList:
-           # print( i.dict['int'])
-            i.clearInt()
-            i.Interfaces.clear()
-            #print(len(Connections[k]))
-            for j in range(0, len(Connections[k])):
 
-                i.AddInt()
+           # print( i.dict['int'])
+            #i.clearInt()
+            #i.Interfaces.clear()
+            #print(len(Connections[k]))
+            if len(Connections[k]) > len(i.Interfaces):
+                for j in range(0, len(Connections[k])):
+
+                    i.AddInt()
             q = 0
             for j in i.Interfaces:
                 print((Connections[k][q][3]))
                 j.d['name'].setText(Connections[k][q][3])
+                j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}'.format(Connections[k][q][1], Connections[k][q][2]))
                 q += 1
 
-            i.dict['groupBox'].setWhatsThis('{}'.format(len(i.Interfaces)))
+            i.dict['groupBox'].setWhatsThis('{0}'.format(len(i.Interfaces)))
             k += 1
+
+    def smart(self, j, Connections):
+        j.d['name'].setText(Connections[3])
+        j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}'.format(Connections[1], Connections[2]))
 
 
     def MyFunction(self, master):
@@ -101,7 +129,18 @@ class MyWin(QtWidgets.QMainWindow):
         except:
             da = 'da'
 
+class WorkerObject(QtCore.QObject):
+    @QtCore.pyqtSlot()
+    def background_job(self):
+        while True:
+            delegate()
+            print('ddd')
+            time.sleep(5)
+            pass
+
+
 if __name__=="__main__":
+    delegate = None
     Connections = []
     app = QtWidgets.QApplication(sys.argv)
     myapp = MyWin()
