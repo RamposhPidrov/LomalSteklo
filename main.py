@@ -62,11 +62,10 @@ class Connection:
                         ObjectType(OID,new)))
 
     def get_systeminfo(self): #Linux typidor 3.10.0-862.14.4.el7.x86_64 #1 SMP Wed Sep 26 15:12:11 UTC 2018 x86_64
-        return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0))
+        return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@'))
 
     def get_ifrouter(self): #маршрутиризатор ли устройство
-        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addAsn1MibSource('file:///usr/share/snmp',
-                                                                                 'http://mibs.snmplabs.com/asn1/@mib@'))))
+        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@'))))
         for varBind in varBinds:
             if(varBind=='notForwarding'):
                return(0)
@@ -110,22 +109,22 @@ class Connection:
                                     CommunityData(self.community),
                                     UdpTransportTarget((self.ipaddr, self.port)),
                                     ContextData(),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind)),  ObjectType(ObjectIdentity('IF-MIB', 'ifOperStatus',ind)),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifType',ind)),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifMtu',ind)), ObjectType(ObjectIdentity('IF-MIB', 'ifSpeed',ind)),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind)), ObjectType(ObjectIdentity('IF-MIB', 'ifLastChange',ind)),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),  ObjectType(ObjectIdentity('IF-MIB', 'ifOperStatus',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifType',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifMtu',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifSpeed',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifLastChange',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
 
                                     #полученные пакеты
 
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInOctets',ind)), ObjectType(ObjectIdentity('IF-MIB', 'ifInUcastPkts',ind)),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInNUcastPkts',ind)),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInDiscards',ind)), ObjectType(ObjectIdentity('IF-MIB', 'ifInErrors',ind)),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInUnknownProtos',ind)),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInOctets',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifInUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInNUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInDiscards',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifInErrors',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInUnknownProtos',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
 
                                     #отправленные пакеты
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutOctets',ind)), ObjectType(ObjectIdentity('IF-MIB', 'ifOutUcastPkts',ind)),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutNUcastPkts',ind)),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutDiscards',ind)), ObjectType(ObjectIdentity('IF-MIB', 'ifOutErrors',ind)),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutOctets',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifOutUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutNUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutDiscards',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifOutErrors',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
             ))
 
             if errorIndication:
