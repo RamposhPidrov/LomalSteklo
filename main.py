@@ -1,9 +1,8 @@
 from pysnmp.hlapi import *
 import pysnmp
 import logging
+from datetime import datetime, timedelta
 import datetime
-from ipaddress import *
-
 
 #ctrl+alt+shift+J
 class Connection:
@@ -65,8 +64,8 @@ class Connection:
         return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@'))
 
     def get_uptime(self):
-        return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addAsn1MibSource('file:///usr/share/snmp',
-                                                                                         'http://mibs.snmplabs.com/asn1/@mib@'))
+        ticks = int(self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addAsn1MibSource('file:///usr/share/snmp','http://mibs.snmplabs.com/asn1/@mib@')))
+        return  datetime.datetime.now() - timedelta(seconds=ticks/100)
 
     def get_ifrouter(self): #маршрутиризатор ли устройство
         errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@'))))
@@ -143,14 +142,15 @@ class Connection:
             else:
                 for varBind in varBinds:
                     templist.append(' '.join([x.prettyPrint() for x in varBind]).split(' ')[-1])
-                    #print(' = '.join([x.prettyPrint() for x in varBind]))
 
             resultlist.append(templist)
         return resultlist
 
-test = Connection('192.168.43.152', 'public', 161)
+test = Connection('192.168.1.107', 'public', 161)
 
-print(test.get_interfaces())
+import time
+
+print(test.get_uptime())
 
 #print(test.set_oid('1.3.6.1.2.1.4.20.1.1.1'))
 
