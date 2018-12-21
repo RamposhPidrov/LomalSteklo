@@ -121,6 +121,12 @@ class Ui_MainWindow(object):
                                                     QtWidgets.QSizePolicy.Maximum)
                 layout.addItem(spacerItem7)
 
+                self.d = {
+                    'logo': self.label_2,
+                    'name': self.intName,
+                    'text': self.plainTextEdit
+                }
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1193, 728)
