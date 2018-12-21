@@ -61,10 +61,10 @@ class Ui_MainWindow(object):
             spacerItem6 = QtWidgets.QSpacerItem(20, 1, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
             self.verticalLayout_3.addItem(spacerItem6)
 
-            self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
-            self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
+            #self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
+            #self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
 
-            self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
+            #self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
 
             spacerItem8 = QtWidgets.QSpacerItem(20, 163, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
             self.verticalLayout_3.addItem(spacerItem8)
@@ -83,7 +83,8 @@ class Ui_MainWindow(object):
                 'delete': self.pushButton2,
                 'intCount': 0,
                 'isDeleted': False,
-                'int': self.Interfaces
+                'int': self.Interfaces,
+
             }
 
             self.pushButton2.clicked.connect(self.DeleteConnection)
@@ -91,6 +92,10 @@ class Ui_MainWindow(object):
         def DeleteConnection(self):
             self.dict['groupBox'].setVisible(False)
             self.dict['isDeleted'] = True
+
+        def AddInt(self):
+            self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
+            print(self.Interfaces)
 
         class Interface:
             def __init__(self, Frame, layout):
@@ -152,7 +157,7 @@ class Ui_MainWindow(object):
 
 
         self.ConList = []
-        self.createConnection()
+        #self.createConnection()
 
 
 

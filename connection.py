@@ -103,6 +103,13 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.dict = {
+            'o1': self.lineEdit.text(),
+            'o2': self.lineEdit_2.text(),
+            'o3': self.lineEdit_3.text(),
+            'o4': self.lineEdit_4.text()
+        }
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Новое соединение"))
