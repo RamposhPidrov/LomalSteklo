@@ -61,14 +61,14 @@ class Connection:
                         ObjectType(OID,new)))
 
     def get_systeminfo(self): #Linux typidor 3.10.0-862.14.4.el7.x86_64 #1 SMP Wed Sep 26 15:12:11 UTC 2018 x86_64
-        return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@'))
+        return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs'))
 
     def get_uptime(self):
-        ticks = int(self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addAsn1MibSource('file:///usr/share/snmp','http://mibs.snmplabs.com/asn1/@mib@')))
+        ticks = int(self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')))
         return  datetime.datetime.now() - timedelta(seconds=ticks/100)
 
     def get_ifrouter(self): #маршрутиризатор ли устройство
-        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@'))))
+        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs'))))
         for varBind in varBinds:
             if(varBind=='notForwarding'):
                return(0)
@@ -118,21 +118,21 @@ class Connection:
                                     CommunityData(self.community),
                                     UdpTransportTarget((self.ipaddr, self.port)),
                                     ContextData(),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),  ObjectType(ObjectIdentity('IF-MIB', 'ifOperStatus',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifType',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifMtu',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifSpeed',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifLastChange',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),  ObjectType(ObjectIdentity('IF-MIB', 'ifOperStatus',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifType',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifMtu',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifSpeed',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifLastChange',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
 
                                     #полученные пакеты
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInOctets',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifInUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInNUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInDiscards',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifInErrors',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInUnknownProtos',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInOctets',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifInUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInNUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInDiscards',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifInErrors',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInUnknownProtos',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
 
                                     #отправленные пакеты
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutOctets',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifOutUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutNUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutDiscards',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifOutErrors',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutOctets',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifOutUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutNUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutDiscards',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifOutErrors',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
             ))
 
             if errorIndication:
@@ -150,7 +150,7 @@ test = Connection('192.168.1.107', 'public', 161)
 
 import time
 
-print(test.get_uptime())
+print(test.get_interfaces())
 
 #print(test.set_oid('1.3.6.1.2.1.4.20.1.1.1'))
 
