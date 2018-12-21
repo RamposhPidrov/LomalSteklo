@@ -12,6 +12,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     class dd:
         def __init__(self, centralwidget, verticalLayout, i):
+            self.Interfaces = []
+
             self.groupBox = QtWidgets.QGroupBox(centralwidget)
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
             sizePolicy.setHorizontalStretch(0)
@@ -46,16 +48,26 @@ class Ui_MainWindow(object):
             self.inFrame = QtWidgets.QFrame(self.groupBox)
             self.inFrame.setEnabled(True)
             self.inFrame.setMinimumSize(QtCore.QSize(0, 200))
-            self.inFrame.setMaximumSize(QtCore.QSize(16777215, 200))
+            self.inFrame.setMaximumSize(QtCore.QSize(16777215, 600))
             self.inFrame.setAutoFillBackground(False)
             # self.inFrame.setStyleSheet("backgroundcolor: rgb(93, 78, 255)")
             self.inFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
             self.inFrame.setFrameShadow(QtWidgets.QFrame.Raised)
             self.inFrame.setObjectName("inFrame{0}".format(i))
-            self.label_2 = QtWidgets.QLabel(self.inFrame)
-            self.label_2.setGeometry(QtCore.QRect(170, 30, 221, 61))
-            self.label_2.setObjectName("label_2{0}".format(i))
+
+            self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.inFrame)
+            self.verticalLayout_3.setObjectName("verticalLayout_3")
+            spacerItem6 = QtWidgets.QSpacerItem(20, 1, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+            self.verticalLayout_3.addItem(spacerItem6)
+
+            self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
+            self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
+
+            spacerItem8 = QtWidgets.QSpacerItem(20, 163, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+            self.verticalLayout_3.addItem(spacerItem8)
             self.gridLayout.addWidget(self.inFrame, 2, 0, 1, 1)
+
+            #self.gridLayout.addWidget(self.inFrame, 2, 0, 1, 1)
             verticalLayout.addWidget(self.groupBox)
             spacerItem3 = QtWidgets.QSpacerItem(10, 1, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
             verticalLayout.addItem(spacerItem3)
@@ -63,8 +75,9 @@ class Ui_MainWindow(object):
             self.dict = {
                 'groupBox': self.groupBox,
                 'switch': self.switch1,
-                'text': self.label_2,
+                #'text': self.intName,
                 'delete': self.pushButton2,
+                'intCount': 0,
                 'isDeleted': False
             }
 
@@ -73,6 +86,35 @@ class Ui_MainWindow(object):
         def DeleteConnection(self):
             self.dict['groupBox'].setVisible(False)
             self.dict['isDeleted'] = True
+
+        class Interface:
+            def __init__(self, Frame, layout):
+                self.frame = QtWidgets.QFrame(Frame)
+                self.frame.setMinimumSize(QtCore.QSize(0, 190))
+                self.frame.setMaximumSize(QtCore.QSize(16777215, 200))
+                self.frame.setFrameShape(QtWidgets.QFrame.Box)
+                self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+                self.frame.setObjectName("frame")
+                self.gridLayout_4 = QtWidgets.QGridLayout(self.frame)
+                self.gridLayout_4.setObjectName("gridLayout_4")
+                self.label_2 = QtWidgets.QLabel(self.frame)
+                self.label_2.setText("")
+                self.label_2.setTextFormat(QtCore.Qt.AutoText)
+                self.label_2.setPixmap(QtGui.QPixmap("images/garbage_red.png"))
+                self.label_2.setObjectName("label_2")
+                self.gridLayout_4.addWidget(self.label_2, 0, 0, 1, 1)
+                self.intName = QtWidgets.QLabel(self.frame)
+                self.intName.setObjectName("intName")
+                self.gridLayout_4.addWidget(self.intName, 0, 1, 1, 1)
+                self.plainTextEdit = QtWidgets.QPlainTextEdit(self.frame)
+                self.plainTextEdit.setInputMethodHints(QtCore.Qt.ImhMultiLine)
+                self.plainTextEdit.setReadOnly(True)
+                self.plainTextEdit.setObjectName("plainTextEdit")
+                self.gridLayout_4.addWidget(self.plainTextEdit, 1, 1, 1, 1)
+                layout.addWidget(self.frame)
+                spacerItem7 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum,
+                                                    QtWidgets.QSizePolicy.Maximum)
+                layout.addItem(spacerItem7)
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -111,33 +153,7 @@ class Ui_MainWindow(object):
                                                   QtWidgets.QSizePolicy.Maximum)
 
         self.verticalLayout.addItem(self.spacerItem11)
-        '''
-        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(4)
-        self.tableWidget.setRowCount(1)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(3, item)
-        self.tableWidget.setMinimumSize(QtCore.QSize(0, 200))
-        self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 200))
-   
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setItem(0, 0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setItem(0, 1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setItem(0, 2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setItem(0, 3, item)
-   
-        self.verticalLayout.addWidget(self.tableWidget)
-     '''
+
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
@@ -170,33 +186,6 @@ class Ui_MainWindow(object):
         self._translate = QtCore.QCoreApplication.translate
         _translate = self._translate
         MainWindow.setWindowTitle(self._translate("MainWindow", "MainWindow"))
-        '''
-        item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(self._translate("MainWindow", "Устройство"))
-        item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(self._translate("MainWindow", "Код"))
-        item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(self._translate("MainWindow", "Описание"))
-        item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(self._translate("MainWindow", "Дата"))
-        item = self.tableWidget.verticalHeaderItem(0)
-        __sortingEnabled = self.tableWidget.isSortingEnabled()
-        self.tableWidget.setSortingEnabled(False)
-        item = self.tableWidget.item(0, 0)
-        item.setText(self._translate("MainWindow", "Мой хуй"))
-        item = self.tableWidget.item(0, 1)
-        item.setText(self._translate("MainWindow", "123"))
-        item = self.tableWidget.item(0, 2)
-        item.setText(self._translate("MainWindow", "Ты пидор"))
-        item = self.tableWidget.item(0, 3)
-        item.setText(self._translate("MainWindow", "01.01.2012"))
-        '''
-        # self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
-        # self.label_2.setText(_translate("MainWindow", "Ну и помойка"))
-        # self.groupBox_2.setTitle(_translate("MainWindow", "GroupBox"))
-        # self.label_3.setText(_translate("MainWindow", "Ну и помойка"))
-        # self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
-        # self.label_4.setText(_translate("MainWindow", "Ну и помойка"))
         self.label.setText(self._translate("MainWindow", "Copyright Petrovich.inc"))
         self.menu.setTitle(self._translate("MainWindow", "Файл"))
         self.menu_2.setTitle(self._translate("MainWindow", "Соединение"))
@@ -211,7 +200,7 @@ class Ui_MainWindow(object):
             #self.verticalLayout.removeWidget(self.label)
         self.ConList.append(self.dd(self.scrollAreaWidgetContents, self.verticalLayout_2, len(self.ConList)))
         #self.label_2.setText("Ну и помойка")
-        self.ConList[-1].dict['text'].setText('Ну и помойка')
+        #self.ConList[-1].dict['text'].setText('Ну и помойка')
         self.ConList[-1].dict['groupBox'].setTitle('Соединие{0}'.format(len(self.ConList)))
         if len(self.ConList) != 1:
             self.verticalLayout_2.addItem(self.spacerItem14)
@@ -222,7 +211,7 @@ class Ui_MainWindow(object):
             #self.verticalLayout.removeWidget(self.label)
         self.ConList.append(self.dd(self.scrollAreaWidgetContents, self.verticalLayout_2, len(self.ConList)))
         #self.label_2.setText("Ну и помойка")
-        self.ConList[-1].dict['text'].setText('Ну и помойка')
+        #self.ConList[-1].dict['text'].setText('Ну и помойка')
         self.ConList[-1].dict['groupBox'].setTitle('{0}'.format(name))
         if len(self.ConList) != 1:
             self.verticalLayout_2.addItem(self.spacerItem14)
@@ -235,5 +224,11 @@ class Ui_MainWindow(object):
     def deleteConnection(self):
         self.ConList[-1].dict['groupBox'].setVisible(False)
         self.ConList.remove(self.ConList[-1])
+
+    def clear(self):
+        for i in self.ConList:
+            if i.dict['isDeleted']:
+                self.ConList.remove(i)
+
 
 from switch import SwitchButton

@@ -1,7 +1,7 @@
 import sys
 # Импортируем наш интерфейс из файла
-#from Extend import *
 from Extend import *
+#from gui import *
 import connection
 from PyQt5 import QtCore, QtGui, QtWidgets
 from switch import SwitchButton
@@ -40,20 +40,19 @@ class MyWin(QtWidgets.QMainWindow):
 
 
     def MyFunction(self, master):
-        d = {True: 290, False: 60}
+        d = {True: 590, False: 60}
         bool = master._value
         master.parent().setMinimumSize(QtCore.QSize(16777215, d[bool]))
         master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))
         master.parent().children()[list(map(lambda x: str(x).find('QFrame'), master.parent().children())).index(17)].setVisible(bool)
-        print('HUI')
-        print()
 
     def NewConnection(self):
 
         con = ConWin(func=self.ui.createCon, f2=self.EventBound)
         self.Mem.append(con)
+        self.ui.clear()
         con.show()
-        print(self.Mem)
+        print(self.ui.ConList)
         #self.ui.createConnection()
         #self.EventBound()
 

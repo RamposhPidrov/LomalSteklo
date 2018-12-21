@@ -114,7 +114,7 @@ class Connection:
             resultlist.append(templist)
         return resultlist
 
-#test = Connection('192.168.43.50', 'public', 161)
+#test = Connection('192.168.0.8', 'public', 161)
 typidor=[[1, '127.0.0.1', '255.0.0.0', 'lo', 'up', 'softwareLoopback', '65536', '10000000', ''], [2, '192.168.43.50', '255.255.255.0', 'enp0s3', 'up', 'ethernetCsmacd', '1500', '1000000000', '08:00:27:e9:3e:c3']]
 
 #print(test.get_interfaces())
