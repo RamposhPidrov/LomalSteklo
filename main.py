@@ -64,6 +64,10 @@ class Connection:
     def get_systeminfo(self): #Linux typidor 3.10.0-862.14.4.el7.x86_64 #1 SMP Wed Sep 26 15:12:11 UTC 2018 x86_64
         return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@'))
 
+    def get_uptime(self):
+        return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addAsn1MibSource('file:///usr/share/snmp',
+                                                                                         'http://mibs.snmplabs.com/asn1/@mib@'))
+
     def get_ifrouter(self): #маршрутиризатор ли устройство
         errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@'))))
         for varBind in varBinds:
@@ -80,15 +84,21 @@ class Connection:
         oid_generator = (self.snmp_getnextoid('1.3.6.1.2.1.4.20.1.1'))
         while(flag==1): #получение индексов, ipv4, масок
             errorIndication, errorStatus, errorIndex, varBinds =next(oid_generator)
-            for varbind in varBinds:
-                if(str(varbind).find('mib-2.4.20.1.1')!=-1):
-                    iplist.append(str(varbind).split(' ')[-1])
-                if(str(varbind).find('mib-2.4.20.1.2')!=-1):
-                    indlist.append(str(varbind).split(' ')[-1])
-                elif (str(varbind).find('mib-2.4.20.1.3') != -1):
-                    masklist.append(str(varbind).split(' ')[-1])
-                elif(len(masklist)>0):
-                    flag = 0
+            if errorIndication:
+                return (errorIndication)
+            elif errorStatus:
+                return ('%s at %s' % (
+                errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
+            else:
+                for varbind in varBinds:
+                    if(str(varbind).find('mib-2.4.20.1.1')!=-1):
+                        iplist.append(str(varbind).split(' ')[-1])
+                    if(str(varbind).find('mib-2.4.20.1.2')!=-1):
+                        indlist.append(str(varbind).split(' ')[-1])
+                    elif (str(varbind).find('mib-2.4.20.1.3') != -1):
+                        masklist.append(str(varbind).split(' ')[-1])
+                    elif(len(masklist)>0):
+                        flag = 0
 
         for ind in range(1, len(indlist)+1): #получение названия интерфейсов и объединение всего в resultlist
                                              #Результат:
@@ -115,7 +125,6 @@ class Connection:
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifLastChange',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
 
                                     #полученные пакеты
-
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifInOctets',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifInUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifInNUcastPkts',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifInDiscards',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')), ObjectType(ObjectIdentity('IF-MIB', 'ifInErrors',ind).addAsn1MibSource('file:///usr/share/snmp', 'http://mibs.snmplabs.com/asn1/@mib@')),
@@ -136,11 +145,10 @@ class Connection:
                     templist.append(' '.join([x.prettyPrint() for x in varBind]).split(' ')[-1])
                     #print(' = '.join([x.prettyPrint() for x in varBind]))
 
-
             resultlist.append(templist)
         return resultlist
 
-test = Connection('127.0.0.1', 'group1', 161)
+test = Connection('192.168.43.152', 'public', 161)
 
 print(test.get_interfaces())
 
