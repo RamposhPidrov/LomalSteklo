@@ -88,7 +88,7 @@ class MyWin(QtWidgets.QMainWindow):
             for j in i.Interfaces:
                 print((Connections[k][q][3]))
                 j.d['name'].setText(Connections[k][q][3])
-                j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}'.format(Connections[k][q][1], Connections[k][q][2]))
+                j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(Connections[k][q][1], Connections[k][q][2], qwer))
                 q += 1
 
             i.dict['groupBox'].setWhatsThis('{0}'.format(len(i.Interfaces)))
@@ -132,14 +132,17 @@ class MyWin(QtWidgets.QMainWindow):
 class WorkerObject(QtCore.QObject):
     @QtCore.pyqtSlot()
     def background_job(self):
+        global qwer
         while True:
             delegate()
             print('ddd')
+            qwer += 1
             time.sleep(5)
             pass
 
 
 if __name__=="__main__":
+    qwer = 0
     delegate = None
     Connections = []
     app = QtWidgets.QApplication(sys.argv)
