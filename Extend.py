@@ -97,6 +97,10 @@ class Ui_MainWindow(object):
             self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
             print(self.Interfaces)
 
+        def clearInt(self):
+            for i in self.Interfaces:
+                i.delete()
+
         class Interface:
             def __init__(self, Frame, layout):
                 self.frame = QtWidgets.QFrame(Frame)
@@ -131,6 +135,9 @@ class Ui_MainWindow(object):
                     'name': self.intName,
                     'text': self.plainTextEdit
                 }
+
+            def delete(self):
+                self.frame.close()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")

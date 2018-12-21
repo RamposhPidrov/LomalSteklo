@@ -22,9 +22,6 @@ class ConWin(QtWidgets.QMainWindow):
     def submit(self):
         global Connections
         self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
-
-
-
         Connections.append(main.Connection(
             '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
             'public', 161).get_interfaces())
@@ -52,19 +49,21 @@ class MyWin(QtWidgets.QMainWindow):
 
     def info(self):
         self.ui.clear()
+
         global Connections
         print(Connections)
         k = 0
         for i in self.ui.ConList:
            # print( i.dict['int'])
-            i.dict['int'] = []
+            i.clearInt()
+            i.Interfaces.clear()
             #print(len(Connections[k]))
             for j in range(0, len(Connections[k])):
 
                 i.AddInt()
             q = 0
             for j in i.Interfaces:
-
+                print((Connections[k][q][3]))
                 j.d['name'].setText(Connections[k][q][3])
                 q += 1
 
