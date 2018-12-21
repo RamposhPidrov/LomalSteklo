@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bb9429c9-b8cd-47e9-943d-2bc3ceb626c0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,35 +73,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
-              <caret line="81" column="55" selection-start-line="81" selection-start-column="55" selection-end-line="81" selection-end-column="55" />
+            <state relative-caret-position="371">
+              <caret line="107" column="44" lean-forward="true" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/unui.py">
+      <file leaf-file-name="builder.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/smi/builder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="174">
+              <caret line="412" selection-start-line="412" selection-end-line="412" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Extend.py">
+      <file leaf-file-name="rfc1902.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/smi/rfc1902.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="75" column="47" lean-forward="true" selection-start-line="75" selection-start-column="47" selection-end-line="75" selection-end-column="47" />
-              <folding>
-                <marker date="1545382615744" expanded="true" signature="4736:4749" ph="..." />
-              </folding>
+            <state relative-caret-position="167">
+              <caret line="846" selection-start-line="846" selection-end-line="846" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cmdgen.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/hlapi/asyncore/cmdgen.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="174">
+              <caret line="128" selection-start-line="128" selection-end-line="128" />
             </state>
           </provider>
         </entry>
@@ -142,6 +146,7 @@
       <find>13</find>
       <find>check</find>
       <find>status</find>
+      <find>,</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -156,16 +161,16 @@
         <option value="$USER_HOME$/Downloads/AI.py" />
         <option value="$PROJECT_DIR$/test11.py" />
         <option value="$PROJECT_DIR$/1.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/gui.py" />
         <option value="$PROJECT_DIR$/unui.py" />
         <option value="$PROJECT_DIR$/Extend.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="766" />
-    <option name="y" value="71" />
+    <option name="x" value="765" />
+    <option name="y" value="70" />
     <option name="width" value="1115" />
     <option name="height" value="970" />
   </component>
@@ -205,7 +210,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.unui">
+  <component name="RunManager" selected="Python.main">
     <configuration name="1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Kursach" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -223,9 +228,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="AI" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Kursach" />
@@ -244,9 +246,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Kursach" />
@@ -265,9 +264,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="test11" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Kursach" />
@@ -286,9 +282,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="unui" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Kursach" />
@@ -307,9 +300,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Python.unui" />
@@ -320,8 +310,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.unui" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.unui" />
         <item itemvalue="Python.1" />
         <item itemvalue="Python.test11" />
         <item itemvalue="Python.AI" />
@@ -342,57 +332,76 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.115051225" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32965517" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24336973" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.38533542" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.114583336" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.24275862" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38533542" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32965517" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.24980299" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32137287" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39937598" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32137287" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39937598" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="81" column="55" selection-start-line="81" selection-start-column="55" selection-end-line="81" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Extend.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/111.py" />
     <entry file="file://$PROJECT_DIR$/helloworld.py" />
     <entry file="file://$USER_HOME$/Downloads/AI.py" />
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/hlapi/asyncore/cmdgen.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/hlapi/asyncore/sync/cmdgen.py" />
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/smi/builder.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/subprocess.py" />
     <entry file="file://$PROJECT_DIR$/test11.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -419,9 +428,6 @@
     </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-758601235/PyQt5/QtDBus.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/PyQt5/uic/Compiler/qtproxies.py" />
-    <entry file="file://$PROJECT_DIR$/connection.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -436,10 +442,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/Extend.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="81" column="55" selection-start-line="81" selection-start-column="55" selection-end-line="81" selection-end-column="55" />
+        <state relative-caret-position="1309">
+          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
         </state>
       </provider>
     </entry>
@@ -447,19 +453,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="367">
           <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Extend.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/smi/builder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="75" column="47" lean-forward="true" selection-start-line="75" selection-start-column="47" selection-end-line="75" selection-end-column="47" />
-          <folding>
-            <marker date="1545382615744" expanded="true" signature="4736:4749" ph="..." />
-          </folding>
+        <state relative-caret-position="174">
+          <caret line="412" selection-start-line="412" selection-end-line="412" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/smi/rfc1902.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="846" selection-start-line="846" selection-end-line="846" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pysnmp/hlapi/asyncore/cmdgen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="128" selection-start-line="128" selection-end-line="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="107" column="44" lean-forward="true" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
         </state>
       </provider>
     </entry>
