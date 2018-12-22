@@ -67,6 +67,8 @@ class Connection:
         ticks = int(self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')))
         return  datetime.datetime.now() - timedelta(seconds=ticks/100)
 
+
+
     def get_ifrouter(self): #маршрутиризатор ли устройство
         errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs'))))
         for varBind in varBinds:
@@ -145,6 +147,9 @@ class Connection:
 
             resultlist.append(templist)
         return resultlist
+
+def get_uptime_loh(ticks):
+    return  datetime.datetime.now() - timedelta(seconds=ticks/100)
 
 test = Connection('192.168.1.107', 'public', 161)
 

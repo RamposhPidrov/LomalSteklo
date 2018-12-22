@@ -25,10 +25,18 @@ class ConWin(QtWidgets.QMainWindow):
     def submit(self):
         global Connections
         global mrglobal
+        global Con
+        global lock
+        while lock:
+            d = 'da'
+            print(d)
+        lock = True
         self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
         Connections.append(main.Connection(
-            '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
-            'public', 161).get_interfaces())
+                '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
+                'public', 161).get_interfaces())
+        Con.append(['{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
+                        'public', 161])
         try:
             self.f3()
         except:
@@ -89,7 +97,7 @@ class MyWin(QtWidgets.QMainWindow):
 
     def info(self):
         self.ui.clear()
-
+        global lock
         global Connections
         print(Connections)
         k = 0
@@ -107,17 +115,16 @@ class MyWin(QtWidgets.QMainWindow):
             try:
                 for j in i.Interfaces:
                     j.d['name'].setText(Connections[k][q][3])
+                    print(main.get_uptime_loh(int(Connections[k][q][10])))
                     j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(Connections[k][q][1], Connections[k][q][2], qwer))
                     q += 1
             except:
-                for j in i.Interfaces:
-                    j.d['name'].setText('')
-                    j.d['text'].setPlainText('')
                 print('MLYA YA MASLINU POIMAL')
 
 
             i.dict['groupBox'].setWhatsThis('{0}'.format(len(i.Interfaces)))
             k += 1
+        lock = False
 
     def smart(self, j, Connections):
         j.d['name'].setText(Connections[3])
@@ -157,13 +164,26 @@ class MyWin(QtWidgets.QMainWindow):
         except:
             da = 'da'
 
+
+
+
 class WorkerObject(QtCore.QObject):
     @QtCore.pyqtSlot()
     def background_job(self):
         global qwer
         global mrglobal
+        global lock
         while True:
+            b = 0
+            lock = True
+            for i in range(0, len(Connections)):
+                print(Connections[i])
+                Connections[i] = main.Connection(Con[i][0],Con[i][1], Con[i][2]).get_interfaces()
+                print(Connections[i])
+                b = i
+
             delegate()
+            lock = False
             print('ddd')
             mrglobal = False
             qwer += 1
@@ -176,6 +196,8 @@ if __name__=="__main__":
     qwer = 0
     delegate = None
     mrglobal = False
+    lock = False
+    Con = []
     Connections = []
     app = QtWidgets.QApplication(sys.argv)
     myapp = MyWin()
