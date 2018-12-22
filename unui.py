@@ -7,6 +7,7 @@ from Extend import *
 import connection
 import main
 from PyQt5 import QtCore, QtGui, QtWidgets
+import PyQt5.Qt as qt
 from switch import SwitchButton
 
 
@@ -23,14 +24,32 @@ class ConWin(QtWidgets.QMainWindow):
 
     def submit(self):
         global Connections
+        global mrglobal
         self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
         Connections.append(main.Connection(
             '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
             'public', 161).get_interfaces())
-        self.f3()
+        try:
+            self.f3()
+        except:
+            self.f3()
         self.f2()
+        mrglobal = True
         self.close()
         self.destroy()
+
+    def keyPressEvent(self, e):
+        print(1)
+        if e.key() == QtCore.Qt.Key_Enter or e.key() == QtCore.Qt.Key_Return:
+
+            self.con.lineEdit_4.setReadOnly(True)
+            self.con.lineEdit_3.setReadOnly(True)
+            self.con.lineEdit_2.setReadOnly(True)
+            self.con.lineEdit.setReadOnly(True)
+            self.con.pushButton.click()
+            print(2)
+            #self.submit()
+
 
 class MyWin(QtWidgets.QMainWindow):
     signal_start_background_job = QtCore.pyqtSignal()
@@ -85,11 +104,17 @@ class MyWin(QtWidgets.QMainWindow):
 
                     i.AddInt()
             q = 0
-            for j in i.Interfaces:
-                print((Connections[k][q][3]))
-                j.d['name'].setText(Connections[k][q][3])
-                j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(Connections[k][q][1], Connections[k][q][2], qwer))
-                q += 1
+            try:
+                for j in i.Interfaces:
+                    j.d['name'].setText(Connections[k][q][3])
+                    j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(Connections[k][q][1], Connections[k][q][2], qwer))
+                    q += 1
+            except:
+                for j in i.Interfaces:
+                    j.d['name'].setText('')
+                    j.d['text'].setPlainText('')
+                print('MLYA YA MASLINU POIMAL')
+
 
             i.dict['groupBox'].setWhatsThis('{0}'.format(len(i.Interfaces)))
             k += 1
@@ -100,11 +125,14 @@ class MyWin(QtWidgets.QMainWindow):
 
 
     def MyFunction(self, master):
-        d = {True: 60 + 210 * int(master.parent().whatsThis()), False: 60}
-        bool = master._value
-        master.parent().setMinimumSize(QtCore.QSize(16777215, d[bool]))
-        master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))
-        master.parent().children()[list(map(lambda x: str(x).find('QFrame'), master.parent().children())).index(17)].setVisible(bool)
+        if not mrglobal:
+            d = {True: 60 + 210 * int(master.parent().whatsThis()), False: 60}
+            bool = master._value
+            master.parent().setMinimumSize(QtCore.QSize(16777215, d[bool]))
+            master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))
+            master.parent().children()[list(map(lambda x: str(x).find('QFrame'), master.parent().children())).index(17)].setVisible(bool)
+        else:
+            master.setValue(True)
 
     def NewConnection(self):
 
@@ -133,17 +161,21 @@ class WorkerObject(QtCore.QObject):
     @QtCore.pyqtSlot()
     def background_job(self):
         global qwer
+        global mrglobal
         while True:
             delegate()
             print('ddd')
+            mrglobal = False
             qwer += 1
             time.sleep(5)
+
             pass
 
 
 if __name__=="__main__":
     qwer = 0
     delegate = None
+    mrglobal = False
     Connections = []
     app = QtWidgets.QApplication(sys.argv)
     myapp = MyWin()

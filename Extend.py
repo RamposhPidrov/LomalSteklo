@@ -61,10 +61,6 @@ class Ui_MainWindow(object):
             spacerItem6 = QtWidgets.QSpacerItem(20, 1, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
             self.verticalLayout_3.addItem(spacerItem6)
 
-            #self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
-            #self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
-
-            #self.Interfaces.append(self.Interface(self.inFrame, self.verticalLayout_3))
 
             spacerItem8 = QtWidgets.QSpacerItem(20, 163, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
             self.verticalLayout_3.addItem(spacerItem8)
@@ -226,18 +222,19 @@ class Ui_MainWindow(object):
         #self.label_2.setText("Ну и помойка")
         #self.ConList[-1].dict['text'].setText('Ну и помойка')
         self.ConList[-1].dict['groupBox'].setTitle('Соединие{0}'.format(len(self.ConList)))
-        if len(self.ConList) != 1:
+        if len(self.ConList) >= 1:
             self.verticalLayout_2.addItem(self.spacerItem14)
 
     def createCon(self, name):
         if len(self.ConList) != 0:
             self.verticalLayout_2.removeItem(self.spacerItem14)
             #self.verticalLayout.removeWidget(self.label)
+        print(self.verticalLayout_2.children())
         self.ConList.append(self.dd(self.scrollAreaWidgetContents, self.verticalLayout_2, len(self.ConList)))
         #self.label_2.setText("Ну и помойка")
         #self.ConList[-1].dict['text'].setText('Ну и помойка')
         self.ConList[-1].dict['groupBox'].setTitle('{0}'.format(name))
-        if len(self.ConList) != 1:
+        if len(self.ConList) >= 1:
             self.verticalLayout_2.addItem(self.spacerItem14)
 
     def deleteCon(self, id):

@@ -32,6 +32,9 @@ class SwitchButton(QtWidgets.QWidget):
     def setDuration(self, time):
         self.__duration = time
 
+    def setValue(self, val):
+        self.__value = val
+
     def mousePressEvent(self, event):
         if not self.__enabled:
             return
