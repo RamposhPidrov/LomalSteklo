@@ -47,15 +47,17 @@ class ConWin(QtWidgets.QMainWindow):
         self.destroy()
 
     def keyPressEvent(self, e):
-        print(1)
-        if e.key() == QtCore.Qt.Key_Enter or e.key() == QtCore.Qt.Key_Return:
 
-            self.con.lineEdit_4.setReadOnly(True)
-            self.con.lineEdit_3.setReadOnly(True)
-            self.con.lineEdit_2.setReadOnly(True)
-            self.con.lineEdit.setReadOnly(True)
-            self.con.pushButton.click()
-            print(2)
+        try:
+            if e.key() == QtCore.Qt.Key_Enter or e.key() == QtCore.Qt.Key_Return:
+
+                self.con.lineEdit_4.setReadOnly(True)
+                self.con.lineEdit_3.setReadOnly(True)
+                self.con.lineEdit_2.setReadOnly(True)
+                self.con.lineEdit.setReadOnly(True)
+                self.con.pushButton.click()
+        except:
+            da = 'da'
             #self.submit()
 
 
@@ -112,17 +114,26 @@ class MyWin(QtWidgets.QMainWindow):
 
                     i.AddInt()
             q = 0
+            self.MyFunction(i.dict['switch'])
             try:
                 for j in i.Interfaces:
                     j.d['name'].setText(Connections[k][q][3])
-                    print(main.get_uptime_loh(int(Connections[k][q][10])))
-                    j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(Connections[k][q][1], Connections[k][q][2], qwer))
+                    if (Connections[k][q][4]) == 'up':
+                        j.d['logo'].setPixmap(QtGui.QPixmap("images/recGr.png"))
+                    else:
+                        j.d['logo'].setPixmap(QtGui.QPixmap("images/recRed.png"))
+                    #print(main.get_uptime_loh(int(Connections[k][q][10])))
+                    try:
+                        j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(Connections[k][q][1], Connections[k][q][2], qwer))
+                    except:
+                        j.d['text'].setPlainText('')
                     q += 1
             except:
                 print('MLYA YA MASLINU POIMAL')
 
 
             i.dict['groupBox'].setWhatsThis('{0}'.format(len(i.Interfaces)))
+            self.MyFunction(i.dict['switch'])
             k += 1
         lock = False
 
@@ -177,16 +188,21 @@ class WorkerObject(QtCore.QObject):
             b = 0
             lock = True
             for i in range(0, len(Connections)):
-                print(Connections[i])
-                Connections[i] = main.Connection(Con[i][0],Con[i][1], Con[i][2]).get_interfaces()
-                print(Connections[i])
+                try:
+                    #print(Connections[i])
+                    Connections[i] = main.Connection(Con[i][0],Con[i][1], Con[i][2]).get_interfaces()
+                    #print(Connections[i])
+                except:
+                    print('PAPA')
                 b = i
 
             delegate()
-            lock = False
+
             print('ddd')
-            mrglobal = False
+
             qwer += 1
+            lock = False
+            mrglobal = False
             time.sleep(5)
 
             pass

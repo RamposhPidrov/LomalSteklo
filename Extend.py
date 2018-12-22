@@ -110,7 +110,7 @@ class Ui_MainWindow(object):
                 self.label_2 = QtWidgets.QLabel(self.frame)
                 self.label_2.setText("")
                 self.label_2.setTextFormat(QtCore.Qt.AutoText)
-                self.label_2.setPixmap(QtGui.QPixmap("images/garbage_red.png"))
+                self.label_2.setPixmap(QtGui.QPixmap("images/recRed.png"))
                 self.label_2.setObjectName("label_2")
                 self.gridLayout_4.addWidget(self.label_2, 0, 0, 1, 1)
                 self.intName = QtWidgets.QLabel(self.frame)
