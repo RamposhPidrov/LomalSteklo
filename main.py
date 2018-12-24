@@ -10,7 +10,6 @@ class Connection:
     def __init__(self, ip, c, p):
         self.ipaddr = ip
         self.community = c
-        self.port = p
         return
 
     def getAllOIDs(self): #вывод всех оидов по корню
@@ -19,7 +18,7 @@ class Connection:
              errorIndex,
              varBinds) in nextCmd(SnmpEngine(),
                                   CommunityData(self.community),
-                                  UdpTransportTarget((self.ipaddr, self.port)),
+                                  UdpTransportTarget((self.ipaddr, 161)),
                                   ContextData(),
                                   ObjectType(ObjectIdentity('1.3')),
                                   lookupMib=False):
@@ -34,29 +33,29 @@ class Connection:
                 for varBind in varBinds:
                     print(' = '.join([x.prettyPrint() for x in varBind]))
 
-    def get_cmd(self, command):
+    def get_cmd(self, command): #get OID
         return (getCmd(SnmpEngine(),
                        CommunityData(self.community),
-                       UdpTransportTarget((self.ipaddr, self.port)),
+                       UdpTransportTarget((self.ipaddr, 161)),
                        ContextData(),
                        ObjectType(command)))
 
-    def get_oid(self, OID): #main cmd, takind next oid
+    def get_oid(self, OID): #main cmd, takind next oid by MIB
         errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd(OID))
         for name, val in varBinds:
             return (val.prettyPrint())
 
-    def snmp_getnextoid(self, OID):
+    def snmp_getnextoid(self, OID): #get next oid without MIB
         return (nextCmd(SnmpEngine(),
                         CommunityData(self.community),
-                        UdpTransportTarget((self.ipaddr, self.port)),
+                        UdpTransportTarget((self.ipaddr, 161)),
                         ContextData(),
                         ObjectType(ObjectIdentity(OID))))
 
     def set_oid(self, OID, new):
         return (setCmd(SnmpEngine(),
                         CommunityData(self.community),
-                        UdpTransportTarget((self.ipaddr, self.port)),
+                        UdpTransportTarget((self.ipaddr, 161)),
                         ContextData(),
                         ObjectType(OID,new)))
 
@@ -118,7 +117,7 @@ class Connection:
             templist.append(masklist[ind-1])
             errorIndication, errorStatus, errorIndex,varBinds = next(getCmd(SnmpEngine(),
                                     CommunityData(self.community),
-                                    UdpTransportTarget((self.ipaddr, self.port)),
+                                    UdpTransportTarget((self.ipaddr, 161)),
                                     ContextData(),
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),  ObjectType(ObjectIdentity('IF-MIB', 'ifOperStatus',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifType',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
@@ -148,8 +147,6 @@ class Connection:
             resultlist.append(templist)
         return resultlist
 
-def get_uptime_loh(ticks):
-    return  datetime.datetime.now() - timedelta(seconds=ticks/100)
 
 test = Connection('192.168.1.107', 'public', 161)
 
