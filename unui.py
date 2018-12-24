@@ -31,6 +31,9 @@ class ConWin(QtWidgets.QMainWindow):
             d = 'da'
             print(d)
         lock = True
+        ohno = True
+        while ohno:
+            if 
         self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
         Connections.append(main.Connection(
                 '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
@@ -115,16 +118,24 @@ class MyWin(QtWidgets.QMainWindow):
                     i.AddInt()
             q = 0
             self.MyFunction(i.dict['switch'])
+            
             try:
                 for j in i.Interfaces:
-                    j.d['name'].setText(Connections[k][q][3])
-                    if (Connections[k][q][4]) == 'up':
+                    parohod = []
+                    another = True
+                    while another:
+                        try:
+                            parohod = [Connections[k][q][3], Connections[k][q][4], Connections[k][q][1], Connections[k][q][2]]
+                        except:
+                            time.sleep(1)
+                            continue
+                    j.d['name'].setText(parohod[0])
+                    if (parohod[1]) == 'up':
                         j.d['logo'].setPixmap(QtGui.QPixmap("images/recGr.png"))
                     else:
                         j.d['logo'].setPixmap(QtGui.QPixmap("images/recRed.png"))
-                    #print(main.get_uptime_loh(int(Connections[k][q][10])))
                     try:
-                        j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(Connections[k][q][1], Connections[k][q][2], qwer))
+                        j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(parohod[2], parohod[3], qwer))
                     except:
                         j.d['text'].setPlainText('')
                     q += 1
