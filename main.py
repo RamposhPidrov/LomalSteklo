@@ -66,8 +66,6 @@ class Connection:
         ticks = int(self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')))
         return  datetime.datetime.now() - timedelta(seconds=ticks/100)
 
-
-
     def get_ifrouter(self): #маршрутиризатор ли устройство
         errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs'))))
         for varBind in varBinds:
@@ -150,23 +148,7 @@ class Connection:
 
 test = Connection('192.168.1.107', 'public', 161)
 
-import time
-
 print(test.get_interfaces())
-
-#print(test.set_oid('1.3.6.1.2.1.4.20.1.1.1'))
-
-'''
-        OID_ipAdEntAddr = '1.3.6.1.2.1.4.20.1.1'  # From SNMPv2-MIB ip адреса
-        OID_ifNumber = '1.3.6.1.2.1.2.1.0'  # From RFC1213-MIB количество интерфейсов ifindex
-        OID_sysName = '1.3.6.1.2.1.1.5.0'  # From SNMPv2-MIB hostname/sysname
-        OID_ipAdEntIfIndex = '1.3.6.1.2.1.4.20.1.2'  # From SNMPv2-MIB ifindex interface
-        OID_ipAdEntNetMask = '1.3.6.1.2.1.4.20.1.3'  # From SNMPv2-MIB
-        OID_ifAlias = '1.3.6.1.2.1.31.1.1.1.18'  # Desc интерфейса. для получения к OID надо добавить ifindex
-        OID_ifName = '1.3.6.1.2.1.31.1.1.1.1'  # название интерфейса к OID надо добавить ifindex
-        varBinds = 0        
-'''
-
 
 
 
