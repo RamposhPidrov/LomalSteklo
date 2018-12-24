@@ -33,7 +33,11 @@ class ConWin(QtWidgets.QMainWindow):
         lock = True
         ohno = True
         while ohno:
-            if 
+            if '' in [self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()]:
+                continue
+            else:
+                ohno = False
+
         self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
         Connections.append(main.Connection(
                 '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
@@ -43,6 +47,7 @@ class ConWin(QtWidgets.QMainWindow):
         try:
             self.f3()
         except:
+            time.sleep(1)
             self.f3()
         self.f2()
         mrglobal = True
