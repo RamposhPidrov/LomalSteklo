@@ -134,6 +134,7 @@ class MyWin(QtWidgets.QMainWindow):
                     while another:
                         try:
                             parohod = [Connections[k][q][3], Connections[k][q][4], Connections[k][q][1], Connections[k][q][2]]
+                            another = False
                         except:
                             time.sleep(1)
                             continue
