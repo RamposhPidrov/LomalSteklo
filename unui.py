@@ -34,7 +34,9 @@ class ConWin(QtWidgets.QMainWindow):
         ohno = True
         while ohno:
             if '' in [self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()]:
-                continue
+                lock = False
+                return 0
+            
             else:
                 ohno = False
 
