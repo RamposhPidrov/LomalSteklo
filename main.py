@@ -10,6 +10,7 @@ class Connection:
     def __init__(self, ip, c, p):
         self.ipaddr = ip
         self.community = c
+        self.port=p
         return
 
     def getAllOIDs(self): #вывод всех оидов по корню
@@ -33,15 +34,15 @@ class Connection:
                 for varBind in varBinds:
                     print(' = '.join([x.prettyPrint() for x in varBind]))
 
-    def get_cmd(self, command): #get OID
+    def get_oid(self, command): #get OID
         return (getCmd(SnmpEngine(),
                        CommunityData(self.community),
                        UdpTransportTarget((self.ipaddr, 161)),
                        ContextData(),
                        ObjectType(command)))
 
-    def get_oid(self, OID): #main cmd, takind next oid by MIB
-        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd(OID))
+    def get_next_oid(self, OID): #main cmd, takind next oid by MIB
+        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_oid(OID))
         for name, val in varBinds:
             return (val.prettyPrint())
 
@@ -60,14 +61,14 @@ class Connection:
                         ObjectType(OID,new)))
 
     def get_systeminfo(self): #Linux typidor 3.10.0-862.14.4.el7.x86_64 #1 SMP Wed Sep 26 15:12:11 UTC 2018 x86_64
-        return self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs'))
+        return self.get_next_oid(ObjectIdentity('SNMPv2-MIB', 'sysDescr',0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs'))
 
     def get_uptime(self):
-        ticks = int(self.get_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')))
+        ticks = int(self.get_next_oid(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')))
         return  datetime.datetime.now() - timedelta(seconds=ticks/100)
 
     def get_ifrouter(self): #маршрутиризатор ли устройство
-        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_cmd((ObjectIdentity('IP-MIB', 'ipForwarding',0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs'))))
+        errorIndication, errorStatus, errorIndex, varBinds = next(self.get_oid((ObjectIdentity('IP-MIB', 'ipForwarding',0).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs'))))
         for varBind in varBinds:
             if(varBind=='notForwarding'):
                return(0)
@@ -101,7 +102,7 @@ class Connection:
         for ind in range(1, len(indlist)+1): #получение названия интерфейсов и объединение всего в resultlist
                                              #Результат:
                                              # [
-                                             # индекс | айпи | маска | название | состояние | тип интерфейса | MTU | скорость | физический адресс | Sysuptime интерфейса |
+                                             # индекс | айпи | маска | название | состояние | тип интерфейса | MTU | скорость | физический адрес | Sysuptime интерфейса |
                                              #
                                              #Полное число полученных байтов | число полученных unicast пакетов | число полученных broadcast пакетов | Число полученных но отвергнутых пакетов|
                                              #Число пакетов, полученных с ошибкой | Число пакетов, полученных с ошибочным кодом протокола |
@@ -117,21 +118,28 @@ class Connection:
                                     CommunityData(self.community),
                                     UdpTransportTarget((self.ipaddr, 161)),
                                     ContextData(),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),  ObjectType(ObjectIdentity('IF-MIB', 'ifOperStatus',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifDescr',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOperStatus',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifType',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifMtu',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifSpeed',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifLastChange',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifMtu',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifSpeed',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifPhysAddress',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifLastChange',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
 
                                     #полученные пакеты
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInOctets',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifInUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInOctets',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifInNUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInDiscards',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifInErrors',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInDiscards',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifInErrors',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifInUnknownProtos',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
 
                                     #отправленные пакеты
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutOctets',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifOutUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutOctets',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
                                     ObjectType(ObjectIdentity('IF-MIB', 'ifOutNUcastPkts',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
-                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutDiscards',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')), ObjectType(ObjectIdentity('IF-MIB', 'ifOutErrors',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutDiscards',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
+                                    ObjectType(ObjectIdentity('IF-MIB', 'ifOutErrors',ind).addMibSource('/opt/mibs/pysnmp').addMibSource('python_packaged_mibs')),
             ))
 
             if errorIndication:
@@ -146,7 +154,11 @@ class Connection:
         return resultlist
 
 
+<<<<<<< HEAD
+test = Connection('127.0.0.1', 'public', 161)
+=======
 #test = Connection('192.168.1.107', 'public', 161)
+>>>>>>> fcfaf724ed98942ebddec866f488a70c391270a7
 
 #print(test.get_interfaces())
 
