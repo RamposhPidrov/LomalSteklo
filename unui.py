@@ -27,9 +27,11 @@ class ConWin(QtWidgets.QMainWindow):
         global mrglobal
         global Con
         global lock
-        while lock:
+        global lock2
+        while lock2:
+            print('th1')
             d = 'da'
-            print(d)
+            #print(d)
         lock = True
         ohno = True
         '''
@@ -42,9 +44,11 @@ class ConWin(QtWidgets.QMainWindow):
                 ohno = False
         '''
         self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
-        Connections.append(main.Connection(
-                '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
-                'public', 161).get_interfaces())
+
+        Connections.append(main.Connection('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
+                'public', 161))
+        #Connections.append(main.Connection(
+        #        .get_interfaces())
         Con.append(['{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
                         'public', 161])
         try:
@@ -111,8 +115,10 @@ class MyWin(QtWidgets.QMainWindow):
     def info(self):
         self.ui.clear()
         global lock
+        global lock2
         global Connections
-        print(Connections)
+        global Con
+        #print(Connections)
         k = 0
         for i in self.ui.ConList:
 
@@ -120,33 +126,43 @@ class MyWin(QtWidgets.QMainWindow):
             #i.clearInt()
             #i.Interfaces.clear()
             #print(len(Connections[k]))
-            if len(Connections[k]) > len(i.Interfaces):
-                for j in range(0, len(Connections[k])):
+            int = Connections[k].get_interfaces()
+            if len(int) > len(i.Interfaces):
+                for j in range(0, len(int)):
 
                     i.AddInt()
             q = 0
             self.MyFunction(i.dict['switch'])
             
             try:
+
                 for j in i.Interfaces:
                     parohod = []
                     another = True
                     while another:
                         try:
-                            parohod = [Connections[k][q][3], Connections[k][q][4], Connections[k][q][1], Connections[k][q][2]]
+
+
+
+                           #print(info)
+                            parohod = [int[q][3], int[q][4], int[q][1], int[q][2], int[q][8]]
+                            info = [Connections[k].get_systeminfo(), Connections[k].get_uptime()]
+
                             another = False
                         except:
-                            time.sleep(1)
+                            time.sleep(0.1)
                             continue
+                    i.dict['label'].setText('{0}\n{1}'.format(info[0], info[1]))
                     j.d['name'].setText(parohod[0])
+
                     if (parohod[1]) == 'up':
                         j.d['logo'].setPixmap(QtGui.QPixmap("images/recGr.png"))
                     else:
                         j.d['logo'].setPixmap(QtGui.QPixmap("images/recRed.png"))
                     try:
-                        j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\n{2}'.format(parohod[2], parohod[3], qwer))
+                        j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\nMAC     {2:<10}'.format(parohod[2], parohod[3], parohod[4]))
                     except:
-                        j.d['text'].setPlainText('')
+                        j.d['text'].setPlainText('error')
                     q += 1
             except:
                 print('MLYA YA MASLINU POIMAL')
@@ -164,7 +180,7 @@ class MyWin(QtWidgets.QMainWindow):
 
     def MyFunction(self, master):
         if not mrglobal:
-            d = {True: 60 + 210 * int(master.parent().whatsThis()), False: 60}
+            d = {True: 60 + 210 * int(master.parent().whatsThis()), False: 70}
             bool = master._value
             master.parent().setMinimumSize(QtCore.QSize(16777215, d[bool]))
             master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))
@@ -187,7 +203,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.deleteCon(self.LastBtnId)
 
     def EventBound(self):
-        print('g')
+        #print('g')
         for i in self.ui.ConList:
             i.dict['switch'].clicked(self.MyFunction)
         try:
@@ -204,13 +220,20 @@ class WorkerObject(QtCore.QObject):
         global qwer
         global mrglobal
         global lock
+        global lock2
         while True:
             b = 0
-            lock = True
+            while lock:
+
+                if not lock2:
+                    lock = False
+                print(lock2)
+                da = 'da'
+            lock2 = True
             for i in range(0, len(Connections)):
                 try:
                     #print(Connections[i])
-                    Connections[i] = main.Connection(Con[i][0],Con[i][1], Con[i][2]).get_interfaces()
+                    Connections[i] = main.Connection(Con[i][0],Con[i][1], Con[i][2])
                     #print(Connections[i])
                 except:
                     print('PAPA')
@@ -218,10 +241,10 @@ class WorkerObject(QtCore.QObject):
 
             delegate()
 
-            print('ddd')
+           # print('ddd')
 
             qwer += 1
-            lock = False
+            lock2 = False
             mrglobal = False
             time.sleep(5)
 
@@ -233,6 +256,7 @@ if __name__=="__main__":
     delegate = None
     mrglobal = False
     lock = False
+    lock2 = False
     Con = []
     Connections = []
     app = QtWidgets.QApplication(sys.argv)

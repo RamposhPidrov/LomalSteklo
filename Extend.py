@@ -37,8 +37,15 @@ class Ui_MainWindow(object):
             self.switch1.setToolTipDuration(-1)
             self.switch1.setAutoFillBackground(False)
             self.switch1.setObjectName("switch1{0}".format(i))
+
+            self.label_6 = QtWidgets.QLabel(self.groupBox)
+            self.label_6.setObjectName("label_6")
+            self.gridLayout.addWidget(self.label_6, 0, 0, 1, 1)
+            self.label_6.setText('123\n123')
+
             self.gridLayout.addWidget(self.switch1, 0, 1, 1, 1)
             self.gridLayout.addWidget(self.pushButton2, 0, 4, 4, 4)
+
             spacerItem = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
             self.gridLayout.addItem(spacerItem, 0, 2, 1, 1)
             spacerItem1 = QtWidgets.QSpacerItem(797, 30, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -80,6 +87,7 @@ class Ui_MainWindow(object):
                 'intCount': 0,
                 'isDeleted': False,
                 'int': self.Interfaces,
+                'label': self.label_6
 
             }
 
@@ -205,8 +213,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         self._translate = QtCore.QCoreApplication.translate
         _translate = self._translate
-        MainWindow.setWindowTitle(self._translate("MainWindow", "MainWindow"))
-        self.label.setText(self._translate("MainWindow", "Copyright Petrovich.inc"))
+        MainWindow.setWindowTitle(self._translate("MainWindow", "Мониторинг"))
+        self.label.setText(self._translate("MainWindow", ""))
         self.menu.setTitle(self._translate("MainWindow", "Файл"))
         self.menu_2.setTitle(self._translate("MainWindow", "Соединение"))
         self.action.setText(self._translate("MainWindow", "Добавить"))

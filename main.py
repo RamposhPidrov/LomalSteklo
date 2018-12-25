@@ -146,9 +146,9 @@ class Connection:
         return resultlist
 
 
-test = Connection('192.168.1.107', 'public', 161)
+#test = Connection('192.168.1.107', 'public', 161)
 
-print(test.get_interfaces())
+#print(test.get_interfaces())
 
 
 
