@@ -145,7 +145,7 @@ class MyWin(QtWidgets.QMainWindow):
 
 
                            #print(info)
-                            parohod = [int[q][3], int[q][4], int[q][1], int[q][2], int[q][8]]
+                            parohod = [int[q][3], int[q][4], int[q][1], int[q][2], int[q][8], int[q][10]]
                             info = [Connections[k].get_systeminfo(), Connections[k].get_uptime()]
 
                             another = False
@@ -160,7 +160,7 @@ class MyWin(QtWidgets.QMainWindow):
                     else:
                         j.d['logo'].setPixmap(QtGui.QPixmap("images/recRed.png"))
                     try:
-                        j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\nMAC     {2:<10}'.format(parohod[2], parohod[3], parohod[4]))
+                        j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\nMAC     {2:<10}\n{3}'.format(parohod[2], parohod[3], parohod[4], parohod[5]))
                     except:
                         j.d['text'].setPlainText('error')
                     q += 1

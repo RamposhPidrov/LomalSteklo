@@ -189,8 +189,8 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1193, 21))
         self.menubar.setObjectName("menubar")
-        self.menu = QtWidgets.QMenu(self.menubar)
-        self.menu.setObjectName("menu")
+        #self.menu = QtWidgets.QMenu(self.menubar)
+        #self.menu.setObjectName("menu")
         self.menu_2 = QtWidgets.QMenu(self.menubar)
         self.menu_2.setObjectName("menu_2")
         MainWindow.setMenuBar(self.menubar)
@@ -204,7 +204,7 @@ class Ui_MainWindow(object):
         self.menu_2.addAction(self.action)
         self.menu_2.addSeparator()
         self.menu_2.addAction(self.action_3)
-        self.menubar.addAction(self.menu.menuAction())
+        #        self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -215,7 +215,7 @@ class Ui_MainWindow(object):
         _translate = self._translate
         MainWindow.setWindowTitle(self._translate("MainWindow", "Мониторинг"))
         self.label.setText(self._translate("MainWindow", ""))
-        self.menu.setTitle(self._translate("MainWindow", "Файл"))
+       #self.menu.setTitle(self._translate("MainWindow", "Файл"))
         self.menu_2.setTitle(self._translate("MainWindow", "Соединение"))
         self.action.setText(self._translate("MainWindow", "Добавить"))
         self.action_3.setText(self._translate("MainWindow", "Удалить"))
