@@ -154,11 +154,7 @@ class Connection:
         return resultlist
 
 
-<<<<<<< HEAD
-test = Connection('127.0.0.1', 'public', 161)
-=======
-#test = Connection('192.168.1.107', 'public', 161)
->>>>>>> fcfaf724ed98942ebddec866f488a70c391270a7
+
 
 #print(test.get_interfaces())
 
