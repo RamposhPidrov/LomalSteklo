@@ -148,13 +148,22 @@ class Connection:
                 return ('%s at %s' % (errorStatus.prettyPrint(),errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
             else:
                 for varBind in varBinds:
-                    templist.append(' '.join([x.prettyPrint() for x in varBind]).split(' ')[-1])
+                    
+                    #print(str(varbind))
+                    #print(str(varbind).split(' ')[1:])
+                    templist.append(' '.join([x.prettyPrint() for x in varBind]).split(' ')[1:])
+                templist = templist[:3] + [' '.join(i for i in templist[3])] + templist[4:]
+
+                    #i = i[:3] + i[4:]
 
             resultlist.append(templist)
+
+                ##for j in i:
+
         return resultlist
 
-
-
+a = Connection('127.0.0.1','public',161)
+print(a.get_interfaces())
 
 #print(test.get_interfaces())
 
