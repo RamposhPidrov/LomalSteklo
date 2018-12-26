@@ -29,28 +29,40 @@ class ConWin(QtWidgets.QMainWindow):
         global lock
         global lock2
         while lock2:
-            print('th1')
+            #print('th1')
             d = 'da'
             #print(d)
         lock = True
         ohno = True
-        '''
-        while ohno:
-            if '' in [self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()]:
+
+        if '' in [self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()]:
+            lock = False
+            return 0
+
+        try:
+            if type(main.Connection(
+                '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(),
+                                         self.con.lineEdit_3.text(),
+                                         self.con.lineEdit_4.text()),
+                'public', 161).get_interfaces()) is not list:
+                print('Invalid host address')
                 lock = False
                 return 0
-            
-            else:
-                ohno = False
-        '''
-        self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
 
-        Connections.append(main.Connection('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
-                'public', 161))
-        #Connections.append(main.Connection(
-        #        .get_interfaces())
-        Con.append(['{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()),
-                        'public', 161])
+        except:
+            print('There is no such host')
+            lock = False
+            return 0
+        self.f('{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(),
+                                        self.con.lineEdit_3.text(), self.con.lineEdit_4.text()))
+        Connections.append(main.Connection(
+            '{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(),
+                                     self.con.lineEdit_3.text(),
+                                     self.con.lineEdit_4.text()),
+            'public', 161))
+        Con.append(['{0}.{1}.{2}.{3}'.format(self.con.lineEdit.text(), self.con.lineEdit_2.text(),
+                                                 self.con.lineEdit_3.text(), self.con.lineEdit_4.text()), 'public', 161])
+
         try:
             self.f3()
         except:
@@ -220,6 +232,8 @@ class WorkerObject(QtCore.QObject):
         global qwer
         global mrglobal
         global lock
+        global Connections
+        global Con
         global lock2
         while True:
             b = 0
@@ -236,7 +250,10 @@ class WorkerObject(QtCore.QObject):
                     Connections[i] = main.Connection(Con[i][0],Con[i][1], Con[i][2])
                     #print(Connections[i])
                 except:
-                    print('PAPA')
+                    print('PAPA', Connections)
+                    #Con = Con[:-1]
+                    #Connections = Connections[:-1]
+                    break
                 b = i
 
             delegate()
