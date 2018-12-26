@@ -109,11 +109,6 @@ class MyWin(QtWidgets.QMainWindow):
 
         self.signal_start_background_job.connect(self.worker.background_job)
         self.start_background_job()
-        #self.ui.action.toggled.connect(self.NewLog)  # .changed().connect()
-        #self.ui.switch1.clicked(self.MyFunction)
-       # self.ui.switch1_2.clicked(self.MyFunction)
-        #self.ui.switch1_3.clicked(self.MyFunction)
-        #self.ui.pushButton.clicked.connect()
 
     def start_background_job(self):
         # No harm in calling thread.start() after the thread is already started.
@@ -145,7 +140,8 @@ class MyWin(QtWidgets.QMainWindow):
                     i.AddInt()
             q = 0
             self.MyFunction(i.dict['switch'])
-            
+            info = [Connections[k].get_systeminfo(), Connections[k].get_uptime()]
+            i.dict['label'].setText('{0}\n{1}'.format(info[0], info[1]))
             try:
 
                 for j in i.Interfaces:
@@ -153,18 +149,12 @@ class MyWin(QtWidgets.QMainWindow):
                     another = True
                     while another:
                         try:
-
-
-
-                           #print(info)
                             parohod = [int[q][3], int[q][4], int[q][1], int[q][2], int[q][8], int[q][10], int[q][16]]
-                            info = [Connections[k].get_systeminfo(), Connections[k].get_uptime()]
-
+                            
                             another = False
                         except:
                             time.sleep(0.1)
                             continue
-                    i.dict['label'].setText('{0}\n{1}'.format(info[0], info[1]))
                     j.d['name'].setText(parohod[0])
 
                     if (parohod[1]) == 'up':
