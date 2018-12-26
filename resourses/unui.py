@@ -241,7 +241,7 @@ class WorkerObject(QtCore.QObject):
 
                 if not lock2:
                     lock = False
-                print(lock2)
+                #print(lock2)
                 da = 'da'
             lock2 = True
             for i in range(0, len(Connections)):
