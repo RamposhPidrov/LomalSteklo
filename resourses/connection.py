@@ -125,7 +125,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "."))
         self.label_3.setText(_translate("MainWindow", "."))
         self.label_4.setText(_translate("MainWindow", "IP адрес"))
-        self.label_5.setText(_translate("MainWindow", "Тип подключения"))
+        self.label_5.setText(_translate("MainWindow", "         Группа SNMP"))
         self.lineEdit_5.setText(_translate("MainWindow", "public"))
         self.label_6.setText(_translate("MainWindow", "Порт"))
         self.lineEdit_6.setText(_translate("MainWindow", "161"))
