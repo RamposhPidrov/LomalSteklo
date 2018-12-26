@@ -2,13 +2,13 @@ import sys
 import time
 import threading
 
-from Extend import *
-#from gui import *
-import connection
-import main
+import resourses.main as main
+import resourses.connection as connection
+from resourses.switch import SwitchButton
+from resourses.Extend import *
 from PyQt5 import QtCore, QtGui, QtWidgets
-import PyQt5.Qt as qt
-from switch import SwitchButton
+
+
 
 
 
