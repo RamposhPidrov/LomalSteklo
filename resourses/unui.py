@@ -168,9 +168,9 @@ class MyWin(QtWidgets.QMainWindow):
                     j.d['name'].setText(parohod[0])
 
                     if (parohod[1]) == 'up':
-                        j.d['logo'].setPixmap(QtGui.QPixmap("images/recGr.png"))
+                        j.d['logo'].setPixmap(QtGui.QPixmap("resourses/images/recGr.png"))
                     else:
-                        j.d['logo'].setPixmap(QtGui.QPixmap("images/recRed.png"))
+                        j.d['logo'].setPixmap(QtGui.QPixmap("resourses/images/recRed.png"))
                     try:
                         j.d['text'].setPlainText('IPADDRESS {0:<10}\nNETMASK    {1:<10}\nMAC     {2:<10}\nBYTES RECEIVED  {3}\nBYTES SENT          {4}'.format(parohod[2], parohod[3], parohod[4], parohod[5], parohod[6]))
                     except:
