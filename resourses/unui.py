@@ -33,6 +33,7 @@ class ConWin(QtWidgets.QMainWindow):
             d = 'da'
             #print(d)
         lock = True
+        lock2 = False
         ohno = True
 
         if '' in [self.con.lineEdit.text(), self.con.lineEdit_2.text(), self.con.lineEdit_3.text(), self.con.lineEdit_4.text()]:
@@ -66,7 +67,7 @@ class ConWin(QtWidgets.QMainWindow):
         try:
             self.f3()
         except:
-            time.sleep(1)
+            time.sleep(0.01)
             self.f3()
         self.f2()
         mrglobal = True
@@ -128,12 +129,13 @@ class MyWin(QtWidgets.QMainWindow):
         #print(Connections)
         k = 0
         for i in self.ui.ConList:
-
            # print( i.dict['int'])
             #i.clearInt()
             #i.Interfaces.clear()
             #print(len(Connections[k]))
             int = Connections[k].get_interfaces()
+            if len == 'RequestedTimeOut':
+                continue
             if len(int) > len(i.Interfaces):
                 for j in range(0, len(int)):
 
@@ -141,6 +143,7 @@ class MyWin(QtWidgets.QMainWindow):
             q = 0
             self.MyFunction(i.dict['switch'])
             info = [Connections[k].get_systeminfo(), Connections[k].get_uptime()]
+            
             i.dict['label'].setText('{0}\n{1}'.format(info[0], info[1]))
             try:
 
@@ -151,9 +154,10 @@ class MyWin(QtWidgets.QMainWindow):
                         try:
                             parohod = [int[q][3], int[q][4], int[q][1], int[q][2], int[q][8], int[q][10], int[q][16]]
                             
+
                             another = False
                         except:
-                            time.sleep(0.1)
+                            time.sleep(0.01)
                             continue
                     j.d['name'].setText(parohod[0])
 
@@ -181,14 +185,12 @@ class MyWin(QtWidgets.QMainWindow):
 
 
     def MyFunction(self, master):
-        if not mrglobal:
             d = {True: 60 + 210 * int(master.parent().whatsThis()), False: 70}
             bool = master._value
             master.parent().setMinimumSize(QtCore.QSize(16777215, d[bool]))
             master.parent().setMaximumSize(QtCore.QSize(16777215, d[bool]))
             master.parent().children()[list(map(lambda x: str(x).find('QFrame'), master.parent().children())).index(17)].setVisible(bool)
-        else:
-            master.setValue(True)
+
 
     def NewConnection(self):
 
@@ -253,7 +255,7 @@ class WorkerObject(QtCore.QObject):
             qwer += 1
             lock2 = False
             mrglobal = False
-            time.sleep(5)
+            time.sleep(1)
 
             pass
 
